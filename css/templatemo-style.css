@@ -309,6 +309,7 @@ video {
 a#logo {
   text-decoration: none;
   font-size: 32px;
+  /*text-transform: lowercase*/
   font-weight: 700;
 }
 .navbar {

@@ -309,7 +309,6 @@ video {
 a#logo {
   text-decoration: none;
   font-size: 32px;
-  text-transform: lowercase;
   font-weight: 700;
 }
 .navbar {
@@ -533,6 +532,8 @@ a#logo {
   transition: all 0.5s ease;
 }
 .service-icon {
+  max-width:80px;
+  max-height:80px;
   display:block;
   margin: 0 auto 0;
   font-size: 64px;

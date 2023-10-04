@@ -30,7 +30,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -ms-font-smoothing: antialiased;
-  font-smoothing: antialiased;
+  --font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
 }
 body {
@@ -611,7 +611,7 @@ a#logo {
   height: 60px;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
-  -webkit-transition: all 0.4s ease;
+  -webkit-transition: all 5s ease;
   transition: all 0.4s ease;
 }
 .portfolio-item .thumb-inner h4 {

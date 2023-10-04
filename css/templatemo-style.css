@@ -601,6 +601,7 @@ a#logo {
   border-radius: 10px;
 }
 .portfolio-item .thumb-inner {
+  max-height: 80%;
   position: absolute;
   z-index: 99;
   bottom: 0;

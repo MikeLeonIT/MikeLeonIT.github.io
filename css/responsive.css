@@ -3,6 +3,18 @@
 		display:block !important;
 		height:auto !important;
 	}
+	.fa-refresh {
+		transform: scaleX(-1);
+		animation: spin-reverse 2s infinite linear;
+	}
+	@keyframes spin-reverse {
+	0% {
+		transform: scaleX(-1) rotate(360deg);
+	}
+	100% {
+		transform: scaleX(-1) rotate(0deg);
+	}
+	}
 }
 @media only screen and (max-width: 1440px) {
 	.welcome-title {
@@ -23,6 +35,18 @@
 	}
 	.navbar-nav li a {
 		font-size: 15px;
+	}
+	.fa-refresh {
+		transform: scaleX(-1);
+		animation: spin-reverse 2s infinite linear;
+	}
+	@keyframes spin-reverse {
+	0% {
+		transform: scaleX(-1) rotate(360deg);
+	}
+	100% {
+		transform: scaleX(-1) rotate(0deg);
+	}
 	}
 	.subscribe-row h5 {
 		font-size:18px;
@@ -70,6 +94,18 @@
 	}
 }
 @media only screen and (max-width: 1199px) {
+	.fa-refresh {
+		transform: scaleX(-1);
+		animation: spin-reverse 2s infinite linear;
+	}
+	@keyframes spin-reverse {
+	0% {
+		transform: scaleX(-1) rotate(360deg);
+	}
+	100% {
+		transform: scaleX(-1) rotate(0deg);
+	}
+	}
 	#fp-nav.fp-right {
 		right:5px;
 	}
@@ -130,6 +166,18 @@
 	}
 }
 @media only screen and (max-width: 991px) {
+	.fa-refresh {
+		transform: scaleX(-1);
+		animation: spin-reverse 2s infinite linear;
+	}
+	@keyframes spin-reverse {
+	0% {
+		transform: scaleX(-1) rotate(360deg);
+	}
+	100% {
+		transform: scaleX(-1) rotate(0deg);
+	}
+	}
 	.welcome-box {
 		padding: 150px 0px;
 	}
@@ -194,6 +242,18 @@
 	}
 }
 @media only screen and (max-width: 767px) {
+	.fa-refresh {
+		transform: scaleX(-1);
+		animation: spin-reverse 2s infinite linear;
+	}
+	@keyframes spin-reverse {
+	0% {
+		transform: scaleX(-1) rotate(360deg);
+	}
+	100% {
+		transform: scaleX(-1) rotate(0deg);
+	}
+	}
 	#header {
 		position: fixed;
 		top: 0;
@@ -352,6 +412,18 @@
 	}
 }
 @media only screen and (max-width: 575px) {
+	.fa-refresh {
+		transform: scaleX(-1);
+		animation: spin-reverse 2s infinite linear;
+	}
+	@keyframes spin-reverse {
+	0% {
+		transform: scaleX(-1) rotate(360deg);
+	}
+	100% {
+		transform: scaleX(-1) rotate(0deg);
+	}
+	}
 	.welcome-title {
 		font-size: 40px;
 	}
@@ -413,6 +485,18 @@
 	}
 }
 @media only screen and (max-width: 460px) {
+	.fa-refresh {
+		transform: scaleX(-1);
+		animation: spin-reverse 2s infinite linear;
+	}
+	@keyframes spin-reverse {
+	0% {
+		transform: scaleX(-1) rotate(360deg);
+	}
+	100% {
+		transform: scaleX(-1) rotate(0deg);
+	}
+	}
 	h4 {
 		font-size: 14px;
 	}
@@ -421,6 +505,18 @@
 	}
 }
 @media only screen and (max-width: 320px) {
+	.fa-refresh {
+		transform: scaleX(-1);
+		animation: spin-reverse 2s infinite linear;
+	}
+	@keyframes spin-reverse {
+	0% {
+		transform: scaleX(-1) rotate(360deg);
+	}
+	100% {
+		transform: scaleX(-1) rotate(0deg);
+	}
+	}
 	.gallery-overlay p {
 		display: none;
 	}

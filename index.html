@@ -13,30 +13,41 @@
 
     <!-- Additional CSS Files -->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
-
     <link rel="stylesheet" type="text/css" href="css/fullpage.min.css">
-
     <link rel="stylesheet" type="text/css" href="css/owl.carousel.css">
-
     <link rel="stylesheet" href="css/animate.css">
-
     <link rel="stylesheet" href="css/templatemo-style.css">
-
     <link rel="stylesheet" href="css/responsive.css">
 
     </head>
     
     <body>
     
-    <div id="video">
+    <div id="myContainer">
         <div class="preloader">
             <div class="preloader-bounce">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
+	    <input type="range" min="100" max="500" step="50" id="mySlider" value="0" onchange="document.getElementById('myVideo').width = this.value;"/>
+	    <script>
+		    function ready(){
+			    $("#myContainer").resizable();
+			    var interval = setInterval(checkWidth, 1000);
+			
+			    function checkWidth()
+			    {
+			         $("#myVideo").width($("#myContainer").width());
+			    }
+			    setTimeout($("#myContainer").width("100px"),1000);
+			
+			    setTimeout($("#myContainer").width("200px"),5000);
+			
+			    setTimeout($("#myContainer").width("300px"),10000);
+			}
+	    </script>
         </div>
 
         <header id="header">

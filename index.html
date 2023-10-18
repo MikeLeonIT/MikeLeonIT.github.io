@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
+    <meta name="description" content="Page of resume Leonov Mikhail">
     <meta name="author" content="Leonov Mikhail">
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900" rel="stylesheet">
 
@@ -24,31 +24,15 @@
     
     <body>
     
-    <div id="myContainer">
+    <div id="video">
         <div class="preloader">
             <div class="preloader-bounce">
                 <span></span>
                 <span></span>
                 <span></span>
-		<video autoplay muted loop id="myVideo">
-		  <source src="images/new1.mp4" type="video/mp4">
-		</video>
-		<input type="range" min="100" max="500" step="50" id="mySlider" value="0" onchange="document.getElementById('myVideo').width = this.value;"/>
-		<script>
-			function ready(){
-				$("#myContainer").resizable();
-				var interval = setInterval(checkWidth, 1000);			
-				function checkWidth()
-				{
-					$("#myVideo").width($("#myContainer").width());
-				}
-				setTimeout($("#myContainer").width("100px"),1000);			
-				setTimeout($("#myContainer").width("200px"),5000);			
-				setTimeout($("#myContainer").width("300px"),10000);
-				}
-		</script>
-	    </div>
-	</div>
+            </div>
+        </div>
+
         <header id="header">
             <div class="container-fluid">
                 <div class="navbar">
@@ -62,10 +46,11 @@
                             <button type="button" class="navbar-toggle"> <i class="fa fa-bars"></i> </button>
                             <div class="nav-box navbar-collapse">
                                 <ul class="navigation-menu nav navbar-nav navbars" id="nav">
-                                    <li data-menuanchor="slide01" class="active"><a href="#slide01">Главная</a></li>
+                                    <li data-menuanchor="slide00" class="active"><a href="#slide00">Главная</a></li>
+                                    <li data-menuanchor="slide01"><a href="#slide01">Главная</a></li>
                                     <li data-menuanchor="slide02"><a href="#slide02">Обо мне</a></li>
                                     <li data-menuanchor="slide03"><a href="#slide03">Опыт работы</a></li>
-                                    <li data-menuanchor="slide04"><a href="#slide04">Мои навыки2</a></li>
+                                    <li data-menuanchor="slide04"><a href="#slide04">Мои навыки</a></li>
                                     <li data-menuanchor="slide05"><a href="#slide05">Мои работы</a></li>
                                     <li data-menuanchor="slide06"><a href="#slide06">Отзывы</a></li>
                                     <li data-menuanchor="slide07"><a href="#slide07">Мои контакты</a></li>
@@ -77,8 +62,31 @@
             </div>
         </header>
 
+        <video autoplay muted loop id="myVideo">
+            <source src="images/new2.mp4" type="video/mp4">
+        </video>
 
         <div id="fullpage" class="fullpage-default">
+
+            <div class="section animated-row" data-section="slide00">
+                    <div class="text_py" >
+                        <p class="animate" data-animate="fadeInUp" style="color:#ffffff; font-size: 32px;
+                    font-weight: bolder;
+                    line-height: 100% ; text-shadow: #000000 0px 10px 10px; text-align: left">class Programmer:
+                        <br>   def __init__(self, name, age, experience):
+                        <br>        self.name = name
+                        <br>        self.age = age
+                        <br>        self.experience = experience
+                        <br>
+                        <br>    def print_attr(self):
+                        <br>        print(f'Name: {self.name}\nAge: {self.age}\nExperience: {self.experience}')
+                        <br>
+                        <br>
+                        <br>page_resume = Programmer("Mikhail Leonov", 32, 'Junior')
+                        <br>page_resume.print_attr() </p>
+                    </div>
+
+            </div>
 
             <div class="section animated-row" data-section="slide01">
                 <div class="section-inner">
@@ -86,6 +94,24 @@
                         <span class="welcome-first animate" data-animate="fadeInUp">Hello, welcome to</span>
                         <h1 class="welcome-title animate" data-animate="fadeInUp">Page of resume Leonov MN</h1>
                         <p class="animate" data-animate="fadeInUp">Эта страница создана для более информативного знакомства </p>
+                    </div>
+                    <div class="text_py">
+                        <p>
+                            <textarea name="textarea" cols="90" rows="12">
+                            class Programmer():
+                                def __init__(self, name, age, experience):
+                                    self.name = name
+                                    self.age = age
+                                    self.experience = experience
+
+                                def print_attr(self):
+                                    print(f'Name: {self.name}\nAge: {self.age}\nExperience: {self.experience}')
+
+
+                            page_resume = Programmer('Mikhail Leonov', 32, 'Junior')
+                            page_resume.print_attr()
+                           </textarea>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -518,7 +544,7 @@
         <div id="social-icons">
             <div class="text-right">
                 <ul class="social-icons">
-                    <li><a href="https://hh.ru/resume/3088f682ff0bde497f0039ed1f4a6657444174" title="Head Hunter"><img src="images/logo_hh.png" alt=""></i></a></li>
+                    <li><a href="https://hh.ru/resume/3088f682ff0bde497f0039ed1f4a6657444174" title="Head Hunter"><img src="images/logo_hh.png" alt="" ></i></a></li>
                     <li><a href="https://t.me/Mikhail_Leonov_91" title="Telegram"><i class="fa fa-paper-plane"></i></a></li>
                     <li><a href="https://github.com/MikeLeonIT" title="GitHub"><i class="fa fa-github"></i></a></li>
                     <li><a href="https://www.codewars.com/users/MikeLeonIT" title="Codewars"><img src="images/logo_codewars.png" alt=""></i></a></li>
@@ -536,7 +562,7 @@
     <script src="js/form.js"></script>
     <script src="js/custom.js"></script>
     <script src="js/jquery-2.1.0.min.js"></script>
-    <script src="js/app.js"></script>
+	<script src="js/app.js"></script>
 
 
   </body>

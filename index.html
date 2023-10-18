@@ -30,26 +30,25 @@
                 <span></span>
                 <span></span>
                 <span></span>
-		        <video autoplay muted loop id="myVideo">
-			  <source src="images/new1.mp4" type="video/mp4">
-			</video>
-			<input type="range" min="100" max="500" step="50" id="mySlider" value="0" onchange="document.getElementById('myVideo').width = this.value;"/>
-			<script>
-				function ready(){
-					$("#myContainer").resizable();
-					var interval = setInterval(checkWidth, 1000);			
-					function checkWidth()
-					{
-						$("#myVideo").width($("#myContainer").width());
-					}
-					setTimeout($("#myContainer").width("100px"),1000);			
-					setTimeout($("#myContainer").width("200px"),5000);			
-					setTimeout($("#myContainer").width("300px"),10000);
-					}
-			</script>
-                </div>
+		<video autoplay muted loop id="myVideo">
+		  <source src="images/new1.mp4" type="video/mp4">
+		</video>
+		<input type="range" min="100" max="500" step="50" id="mySlider" value="0" onchange="document.getElementById('myVideo').width = this.value;"/>
+		<script>
+			function ready(){
+				$("#myContainer").resizable();
+				var interval = setInterval(checkWidth, 1000);			
+				function checkWidth()
+				{
+					$("#myVideo").width($("#myContainer").width());
+				}
+				setTimeout($("#myContainer").width("100px"),1000);			
+				setTimeout($("#myContainer").width("200px"),5000);			
+				setTimeout($("#myContainer").width("300px"),10000);
+				}
+		</script>
 	    </div>
-
+	</div>
         <header id="header">
             <div class="container-fluid">
                 <div class="navbar">

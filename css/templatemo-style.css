@@ -131,10 +131,13 @@ figure {
 
 video {
   position: fixed;
+  width: 100% !important;
+  height: auto !important;
   right: 0;
   bottom: 0;
   min-width: 100%; 
   min-height: 100%;
+  object-fit: cover;
 }
 #video:after {
   content: '';

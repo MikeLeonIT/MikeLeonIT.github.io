@@ -1,1 +1,5 @@
-remote_theme: pages-themes/architect@v0.2.0
+'remote_theme: pages-themes/architect@v0.2.0'
+remote_theme: jekyll-theme-slate
+title: NEH Institute materials
+description: July 2017
+baseurl: /Institute-Materials-2017

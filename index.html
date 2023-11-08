@@ -4,12 +4,16 @@
   <head>
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <meta name="description" content="Page of resume Leonov Mikhail">
     <meta name="author" content="Leonov Mikhail">
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900" rel="stylesheet">
-
+    <link rel="stylesheet" href="node_modules/xterm/css/xterm.css" />
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+        <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
     <title>Resume Leonov MN</title>
+
+   
 
     <!-- Additional CSS Files -->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -23,36 +27,46 @@
     </head>
     
     <body>
-    
+        
     <div id="video">
         <div class="preloader">
             <div class="preloader-bounce">
-                <span></span>
-                <span></span>
                 <span></span>
             </div>
         </div>
 
         <header id="header">
+            
             <div class="container-fluid">
                 <div class="navbar">
                     <a href="#slide01" id="logo" title="Resume Leonov MN" style="color:#ffffff; font-size: 32px;
                     font-weight: bolder;
-                    line-height: 100% ; text-shadow: #000000 0px 10px 10px;"><img src="images/logo_python.png" width="50" height="50" alt="" class="fa fa-refresh">
-                        Leonov_MN
+                    line-height: 100% ; text-shadow: #000000 3px 15px 15px;"><img src="images/logo_python.png"
+                                                                                  width="50" height="50"
+                                                                                  class="fa fa-refresh"
+                                                                                  style="text-shadow: #000000 3px 15px 15px"
+                                                                                  alt="">
+                        Leonov_MN <br> <br>
                     </a>
+
+                        <audio controls="controls"><!autoplay="autoplay" muted>
+                            <source src="voice.mp3" type="audio/mpeg">
+                        </audio>
+
                     <div class="navigation-row">
                         <nav id="navigation">
                             <button type="button" class="navbar-toggle"> <i class="fa fa-bars"></i> </button>
                             <div class="nav-box navbar-collapse">
-                                <ul class="navigation-menu nav navbar-nav navbars" id="nav">
+                                <ul class="navigation-menu nav navbar-nav navbars" id="nav" style="text-shadow:
+                                3px 3px 3px black;">
                                     <li data-menuanchor="slide01" class="active"><a href="#slide01">Главная</a></li>
-                                    <li data-menuanchor="slide02"><a href="#slide02">Обо мне</a></li>
-                                    <li data-menuanchor="slide03"><a href="#slide03">Опыт работы</a></li>
-                                    <li data-menuanchor="slide04"><a href="#slide04">Мои навыки</a></li>
-                                    <li data-menuanchor="slide05"><a href="#slide05">Мои работы</a></li>
-                                    <li data-menuanchor="slide06"><a href="#slide06">Отзывы</a></li>
-                                    <li data-menuanchor="slide07"><a href="#slide07">Мои контакты</a></li>
+                                    <li data-menuanchor="slide02"><a href="#slide02">Terminal</a></li>
+                                    <li data-menuanchor="slide03"><a href="#slide03">Обо мне</a></li>
+                                    <li data-menuanchor="slide04"><a href="#slide04">Опыт работы</a></li>
+                                    <li data-menuanchor="slide05"><a href="#slide05">Мои навыки</a></li>
+                                    <li data-menuanchor="slide06"><a href="#slide06">Мои работы</a></li>
+                                    <li data-menuanchor="slide07"><a href="#slide07">Отзывы</a></li>
+                                    <li data-menuanchor="slide08"><a href="#slide08">Мои контакты</a></li>
                                 </ul>
                             </div>
                         </nav>
@@ -66,21 +80,31 @@
         </video>
 
         <div id="fullpage" class="fullpage-default">
-
             <div class="section animated-row" data-section="slide01">
                 <div class="section-inner">
                     <div class="welcome-box" style="color:#ffffff; font-size: 32px;
                     font-weight: bolder;
-                    line-height: 100% ; text-shadow: #000000 0px 10px 10px;">
+                    line-height: 100% ; text-shadow: #000000 3px 15px 30px;">
                         <span class="welcome-first animate" data-animate="fadeInUp">Hello, welcome to</span>
                         <h1 class="welcome-title animate" data-animate="fadeInUp">Page of resume Leonov MN</h1>
                         <p class="animate" data-animate="fadeInUp">Эта страница создана для более информативного знакомства </p>
                     </div>
-                    
-                </div>
+                </div>    
             </div>
 
+
             <div class="section animated-row" data-section="slide02">
+                    <div class="parentBox flex flex-col mt-2 mx-8 relative">
+                        <h1>Interactive shell</h1>
+                        <py-repl style="position: absolute; top: -10000px;">
+                            
+                        </py-repl>
+                    </div>
+            </div>
+
+
+            <div class="section animated-row" data-section="slide03">
+                
                 <div class="section-inner">
                     <div class="about-section">
                         <div class="row justify-content-center">
@@ -109,7 +133,7 @@
                                                         <i class="fa fa-desktop counter-icon" aria-hidden="true"></i><span class="count-number">12</span> Working Years
                                                     </div>
                                                 </div>
-                                                <div class="item animate" data-animate="fadeInUp">
+                                                <div class="item animate" data-nimate="fadeInUp">
                                                     <div class="counter-box">
                                                         <i class="fa fa-support counter-icon" aria-hidden="true"></i><span class="count-number">6</span> Team Members
                                                     </div>
@@ -132,7 +156,7 @@
                 </div>
             </div>
 
-            <div class="section animated-row" data-section="slide03">
+            <div class="section animated-row" data-section="slide04">
                 <div class="section-inner">
                     <div class="row justify-content-center">
                         <div class="col-md-8 wide-col-laptop">
@@ -145,14 +169,14 @@
                                         <div class="service-box">
                                             <span class="service-icon"><img src="images/logo_IPM.png"  alt=""  height="auto" width="auto" aria-hidden="true"></span>
                                             <h3>ПК Промрешение/ IPM System:<br>Инженер тех. поддержки ПО</h3>
-                                            <p>Собственно сама эта страница. </p>
+                                            <p> </p>
                                         </div>
                                     </div>
                                     <div class="item animate" data-animate="fadeInUp">
                                         <div class="service-box">
                                             <span class="service-icon"><img src="images/logo_sber.png"  alt="" height="auto" width="auto" aria-hidden="true"></span>
                                             <h3>Сбер/Сберлогистика:<br>Специалист IT отдела</h3>
-                                            <p> Пишу на python алгоритмы, скрипты, боты, телеграм-боты... </p>
+                                            <p> </p>
                                         </div>
                                     </div>
                                     <div class="item animate" data-animate="fadeInUp">
@@ -204,7 +228,7 @@
                 </div>
             </div>
 
-            <div class="section animated-row" data-section="slide04">
+            <div class="section animated-row" data-section="slide05">
                 <div class="section-inner">
                     <div class="row justify-content-center">
                         <div class="col-md-7 wide-col-laptop">
@@ -399,7 +423,7 @@
                 </div>
             </div>
 
-            <div class="section animated-row" data-section="slide05">
+            <div class="section animated-row" data-section="slide07">
                 <div class="section-inner">
                     <div class="row justify-content-center">
                         <div class="col-md-8 wide-col-laptop">
@@ -454,13 +478,13 @@
                 </div>
             </div>
 
-            <div class="section animated-row" data-section="slide07">
+            <div class="section animated-row" data-section="slide08">
                 <div class="section-inner">
                     <div class="row justify-content-center">
                         <div class="col-md-7 wide-col-laptop">
                             <div class="title-block animate" data-animate="fadeInUp">
-                                <span>Мои контакты</span>
-                                <h2>Напиши мне</h2>
+                                <span> </span>
+                                <h2>Мои контакты</h2>
                             </div>
                             <div class="contact-section">
                                 <div class="row">
@@ -477,7 +501,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 animate" data-animate="fadeInUp">
+                                    <div class="col-md-6 animate" data-animate="fadeInUp" >
                                         <form id="ajax-contact" method="post" action="mailer.php">
                                             <div class="input-field">
                                                 <input type="text" class="form-control" name="name" id="name" required placeholder="Ваше имя">
@@ -491,10 +515,7 @@
                                             <button class="btn" type="submit">Отправить</button>
                                         </form>
                                         <div id="form-messages" class="mt-3"></div>
-                                        <audio controls="controls"> <!autoplay="autoplay">
-                                            <audio preload="metadata"></audio>
-                                            <source src="voice.mp3" type="audio/mpeg" >
-                                        </audio> 
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -508,10 +529,10 @@
         <div id="social-icons">
             <div class="text-right">
                 <ul class="social-icons">
-                    <li><a href="https://hh.ru/resume/3088f682ff0bde497f0039ed1f4a6657444174" title="Head Hunter"><img src="images/logo_hh.png" alt="" ></i></a></li>
+                    <li><a href="https://hh.ru/resume/3088f682ff0bde497f0039ed1f4a6657444174" title="Head Hunter"><img src="images/logo_hh.png" alt="" ></a></li>
                     <li><a href="https://t.me/Mikhail_Leonov_91" title="Telegram"><i class="fa fa-paper-plane"></i></a></li>
                     <li><a href="https://github.com/MikeLeonIT" title="GitHub"><i class="fa fa-github"></i></a></li>
-                    <li><a href="https://www.codewars.com/users/MikeLeonIT" title="Codewars"><img src="images/logo_codewars.png" alt=""></i></a></li>
+                    <li><a href="https://www.codewars.com/users/MikeLeonIT" title="Codewars"><img src="images/logo_codewars.png" alt=""></a></li>
                 </ul>
             </div>
         </div>

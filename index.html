@@ -8,7 +8,6 @@
     <meta name="description" content="Page of resume Leonov Mikhail">
     <meta name="author" content="Leonov Mikhail">
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900" rel="stylesheet">
-    <link rel="stylesheet" href="node_modules/xterm/css/xterm.css" />
     <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
         <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
     <title>Resume Leonov MN</title>
@@ -91,17 +90,12 @@
                     </div>
                 </div>    
             </div>
-
-
-            <div class="section animated-row" data-section="slide02">
-                    <div class="parentBox flex flex-col mt-2 mx-8 relative">
-                        <h1>Interactive shell</h1>
-                        <py-repl style="position: absolute; top: -10000px;">
-                            
-                        </py-repl>
-                    </div>
-            </div>
-
+            
+            <py-repl class="section animated-row" data-section="slide02" style="text-align: left;">
+'''
+Terminal for using
+'''
+            </py-repl>
 
             <div class="section animated-row" data-section="slide03">
                 
@@ -513,9 +507,7 @@
                                                 <textarea class="form-control" name="message" id="message" required placeholder="Ваше сообщение"></textarea>
                                             </div>
                                             <button class="btn" type="submit">Отправить</button>
-                                        </form>
-                                        <div id="form-messages" class="mt-3"></div>
-                                        
+                                        </form>                                       
                                     </div>
                                 </div>
                             </div>

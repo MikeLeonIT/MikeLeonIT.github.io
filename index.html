@@ -96,17 +96,7 @@
 Можете повеселиться с терминалом (Python)
 '''
 
-def get_employee():  # Загрузить сотрудников из файла V
-    employees = {}
-    with open(patch_file, 'r', encoding='utf-8') as file:
-        employees_list = [line.rstrip() for line in file]
-        file.close()
-    for lst in employees_list:
-        user_id = int(lst.split(', ')[0])
-        user_name = lst.split(', ')[1]
-        user_status = lst.split(', ')[2]
-        employees[user_id] = {'name': user_name, 'status': user_status}
-    return employees
+print('Hello world')
             </py-repl>
 
             <div class="section animated-row" data-section="slide03">

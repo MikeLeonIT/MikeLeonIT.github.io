@@ -9,8 +9,8 @@
  * Copyright (C) 2018 http://alvarotrigo.com/fullPage - A project by Alvaro Trigo
  */
 .text_py.p{
-    float: left
-    font: "Comic Sans MS"
+    float: left;
+    font: "Comic Sans MS";
     background: rgba(0, 0, 0, 0);
 }
 

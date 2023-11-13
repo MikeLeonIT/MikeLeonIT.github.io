@@ -25,6 +25,11 @@
 
     </head>
     <meta name="google-site-verification" content="0mGKW8eGnqsaD-cuHBCMIkwtCdkctotvXssEOfkVbR4" />
+
+    <py-env>
+        - pyjokes
+    </py-env>
+
     <body>
         
     <div id="video">
@@ -47,7 +52,11 @@
                                                                                   alt="">
                         Leonov_MN <br> <br>
                     </a>
-
+                    <b><p>Today is <u><label id='today'></label></u></p></b>
+                    <py-script>
+                        import datetime as dt
+                        pyscript.write('today', dt.date.today().strftime('%A %B %d, %Y'))
+                    </py-script>
                         <audio controls="controls"><!autoplay="autoplay" muted>
                             <source src="voice.mp3" type="audio/mpeg">
                         </audio>
@@ -100,12 +109,17 @@
 '''
 Можете повеселиться с терминалом (Python)
 '''
-import antigravity
-import time
+import pyjokes
 
-print(time.asctime())
+
+My_joke = pyjokes.get_joke(language="en", category="all") 
+
+print(My_joke)
+
             </py-repl>
-
+            <div class="col-md-6">
+                <figure class="about-img animate" data-animate="fadeInUp"><img src="qrcode.png" class="rounded" alt=""></figure>
+            </div>
             <div class="section animated-row" data-section="slide03">
                 
                 <div class="section-inner">

@@ -53,9 +53,15 @@
                         Leonov_MN <br> <br>
                     </a>
                     <b><p>Today is <u><label id='today'></label></u></p></b>
+                    <b><p>Time now:  <u><label id='time'></label></u></p></b>
                     <py-script>
                         import datetime as dt
+                        from datetime import datetime
+ 
                         pyscript.write('today', dt.date.today().strftime('%A %B %d, %Y'))
+                        now = datetime.now() 
+                        current_time = now.strftime("%H:%M:%S")
+                        pyscript.write('time', current_time)
                     </py-script>
                         <audio controls="controls"><!autoplay="autoplay" muted>
                             <source src="voice.mp3" type="audio/mpeg">

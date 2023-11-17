@@ -79,6 +79,7 @@
 		margin: 0 auto;
 	}
 	.service-box {
+		max-width: 300px;
 		padding:30px 20px;
 	}
 	.testimonial-content {

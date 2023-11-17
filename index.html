@@ -52,13 +52,13 @@
                                                                                   alt="">
                         Leonov_MN <br> <br>
                     </a>
-                    <b><p>Today is <u><label id='today'></label></u></p></b>
+                    <b><p>  <u><label id='today'></label></u></p></b>
                     
                     <py-script>
                         import datetime as dt
                         from datetime import datetime
  
-                        pyscript.write('today', dt.date.today().strftime('%A %B %d, %Y'))
+                        pyscript.write('today', 'Today is: ' + dt.date.today().strftime('%A %B %d, %Y'))
                         now = datetime.now() 
                         # current_time = now.strftime("%H:%M:%S")
                         # pyscript.write('time', current_time)
@@ -122,7 +122,7 @@ import pyjokes
 My_joke = pyjokes.get_joke(language="en", category="all") 
 
 print(My_joke)
-
+pyscript.write('today', 'Joke is: ' + My_joke)
             </py-repl>
             <div class="col-md-6">
                 <figure class="about-img animate" data-animate="fadeInUp"><img src="qrcode.png" class="rounded" alt=""></figure>

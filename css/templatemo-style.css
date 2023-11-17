@@ -27,6 +27,7 @@ CSS SITEMAP >>>>
 
 html,
 body {
+  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -ms-font-smoothing: antialiased;
@@ -299,6 +300,7 @@ video {
 02. HEADER CSS
 ================================================*/
 #header {
+  scroll-behavior: smooth;
   padding:20px 0;
   position: fixed;
   left:0;

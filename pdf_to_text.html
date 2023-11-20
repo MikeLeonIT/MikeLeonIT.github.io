@@ -9,7 +9,7 @@
     <meta name="author" content="OnLine Терминал Python">
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900" rel="stylesheet">
     <script type="module" src="https://pyscript.net/releases/2023.11.1/core.js"></script>
-    <title>Библиотеки и ПО by Leonov MN</title>
+    <title>Mario_Game_python</title>
 
 
 
@@ -80,29 +80,11 @@
                             <div data-animate="fadeInUp">
                                 <form id="ajax-contact" method="POST" action="coder">
                                     <div class="input-field">
-                                        <input type="text" class="form-control" name="url" id="url" py-click="get_url" required placeholder="Введите занчение для генерации: ">
-                                        <button class="btn" type="submit" py-click="get_url">Отправить</button>
+                                        <button class="button" type="button" id="file_select">Read Local File</button>
                                     </div>
                                     <div>
-                                        <script type="py" config='{ "packages": [ "qrcode" , "Pillow" ] }' name="coder">
-                                            from pyscript import display
-                                            import qrcode
-                                            from PIL import Image
-                                            try:
-                                                #from pyscript.magic_js import document
+                                        <script type="py" config='{ "packages": [ "pygame" , "sys" ] }' name="coder">
 
-                                                url = 'mikeleonit.github.io'
-                                                img = qrcode.make(url)
-
-                                                # url_element = document.getElementById()
-                                                # display(url_element)
-
-                                                # def get_url():
-
-
-                                                display(img)
-                                            except Exception as exc:
-                                                display(exc)
                                         </script>
                                     </div>
                                 </form>                                       

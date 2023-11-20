@@ -53,7 +53,7 @@
                         Leonov_M.N. <br> <br>
                     </a>
 
-                        <audio controls="controls"><!autoplay="autoplay" muted>
+                        <audio controls="controls" ><!autoplay="autoplay" muted>
                             <source src="voice.mp3" type="audio/mpeg">
                         </audio>
 
@@ -81,9 +81,10 @@
             <div class="section animated-row" data-section="slide01">
                 <div class="section-inner">
                     <div class="welcome-box">
-                        <p style="color:#ffffff; font-size: 32px;
-                                  font-weight: bolder; line-height: 100% ;
-                                  text-shadow: #000000 3px 15px 30px;"><br><br>Ваш QR-код:<br></p>
+                        <audio controls="controls"><!autoplay="autoplay" muted>
+                            <source id="audio_speech" src={speech} type="audio/mpeg">
+                        </audio>
+                        <br><br>Ваш QR-код:<br></p>
                         <div class="contact-row" id="qr_view" style="margin: 0 auto; width: 300px;"></div>
                         <p style="color:#ffffff; font-size: 32px;
                                   font-weight: bolder; line-height: 100% ;
@@ -91,16 +92,17 @@
                         <div class="form-control" id="qr_url" style="margin: 0 auto; width: 300px;"></div>
                         <div class="section animated-row" data-section="slide01">
                             <div data-animate="fadeInUp">
-                                <script type="py" config='{ "packages": [ "qrcode" , "Pillow" ] }'>
-                                    from pyscript import display , window , document
-                                    import qrcode
-                                    from PIL import Image
+                                <script type="py" config='{ "packages": [ "gtts" , "urllib3", "idna", "click", "charset-normalizer", "certifi", "requests" ] }'>
+                                    from gtts import gTTS
 
                                     try:
-                                        url = input('')
-                                        display(url, target="qr_url")
-                                        img = qrcode.make(url)
-                                        display(img, target="qr_view")
+                                        #text = input('')
+                                        text = 'dscc'
+                                        speech = gTTS(text=text, lang='ru', slow=True)
+                                        #speech.save("name_status.mp3")
+                                        display(speech)
+                                        #display(text, target="qr_url")
+                                        d#isplay(speech, target="audio_speech")
 
                                     except Exception as exc:
                                         display(exc)

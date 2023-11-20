@@ -52,7 +52,31 @@
                                                                                   alt="">
                         Leonov_M.N.<br> <br>
                     </a>
-                    <b><p>  <u><label id='today'></label></u></p></b>
+
+                    <audio controls="controls"><!autoplay="autoplay" muted>
+                        <source src="voice.mp3" type="audio/mpeg">
+                    </audio>
+
+                    <div class="navigation-row">
+                        <nav id="navigation">
+                            <button type="button" class="navbar-toggle"> <i class="fa fa-bars"></i> </button>
+                            <div class="nav-box navbar-collapse">
+                                <ul class="navigation-menu nav navbar-nav navbars" id="nav" style="text-shadow:
+                                3px 3px 3px black;">
+                                    <li data-menuanchor="slide01" class="active"><a href="#slide01">Главная</a></li>
+                                    <li data-menuanchor="slide02"><a href="#slide02">OnLine Терминал Python</a></li>
+                                    <li data-menuanchor="slide03"><a href="#slide03">OnLine apps Python</a></li>
+                                    <li data-menuanchor="slide04"><a href="#slide04">Обо мне</a></li>
+                                    <li data-menuanchor="slide05"><a href="#slide05">Опыт работы</a></li>
+                                    <li data-menuanchor="slide06"><a href="#slide06">Мои навыки</a></li>
+                                    <li data-menuanchor="slide07"><a href="#slide07">Мои работы</a></li>
+                                    <li data-menuanchor="slide08"><a href="#slide08">Мои контакты</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+
+                    <b><p>  <u type="text" class="form-control" style="text-shadow: 1px 1px 1px black;"><label id='today'></label></u></p></b>
 
                     <py-script>
                         import datetime as dt
@@ -63,29 +87,6 @@
                         # current_time = now.strftime("%H:%M:%S")
                         # pyscript.write('time', current_time)
                     </py-script>
-
-                        <audio controls="controls"><!autoplay="autoplay" muted>
-                            <source src="voice.mp3" type="audio/mpeg">
-                        </audio>
-
-                    <div class="navigation-row">
-                        <nav id="navigation">
-                            <button type="button" class="navbar-toggle"> <i class="fa fa-bars"></i> </button>
-                            <div class="nav-box navbar-collapse">
-                                <ul class="navigation-menu nav navbar-nav navbars" id="nav" style="text-shadow:
-                                3px 3px 3px black;">
-                                    <li data-menuanchor="slide01" class="active"><a href="#slide01">Главная</a></li>
-                                    <li data-menuanchor="slide02"><a href="#slide02">OnLine Терминал Python</a></li>
-                                    <li><a href="qrcode.html">Бибиотеки и ПО</a></li>
-                                    <li data-menuanchor="slide03"><a href="#slide03">Обо мне</a></li>
-                                    <li data-menuanchor="slide04"><a href="#slide04">Опыт работы</a></li>
-                                    <li data-menuanchor="slide05"><a href="#slide05">Мои навыки</a></li>
-                                    <li data-menuanchor="slide06"><a href="#slide06">Мои работы</a></li>
-                                    <li data-menuanchor="slide08"><a href="#slide08">Мои контакты</a></li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
                 </div>
             </div>
         </header>
@@ -117,18 +118,78 @@
 Можете повеселиться с терминалом (Python)
 '''
 import pyjokes
-
+import time
 
 My_joke = pyjokes.get_joke(language="en", category="all")
-
-print(My_joke)
 pyscript.write('today', 'Joke is: ' + My_joke)
+print(time.asctime())
             </py-repl>
-            <div class="col-md-6">
-                <figure class="about-img animate" data-animate="fadeInUp"><img src="qrcode.png" class="rounded" alt=""></figure>
-            </div>
-            <div class="section animated-row" data-section="slide03">
 
+            <div class="section animated-row" data-section="slide03">
+                <div class="section-inner">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8 wide-col-laptop">
+                            <div class="title-block animate" data-animate="fadeInUp">
+                                <h2>Online-App с применением PyScript & Python</h2>
+                            </div>
+                            <div class="services-section">
+                                <div class="services-list owl-carousel">
+                                    <div class="item animate" data-animate="fadeInUp">
+                                        <div class="service-box">
+                                            <span class="service-icon"><img src="images/qr_code.jpg"
+                                                width="auto" height="auto" alt=""></span>
+                                            <h3 style="text-shadow: 1px 1px 1px black;">Онлайн генератор QR-кодов</h3>
+                                            <li style="list-style-type: none;">
+                                                <a href="qrcode.html">
+                                                    <span style="color: black; text-shadow: 3px 3px 3px white;"><strong>👉...Ссылка...👈</strong></span>
+                                                </a>
+                                            </li>
+                                        </div>
+                                    </div>
+                                    <div class="item animate" data-animate="fadeInUp">
+                                        <div class="service-box">
+                                            <span class="service-icon"><img src="images/qr_code.jpg"
+                                                width="auto" height="auto" alt=""></span>
+                                            <h3 style="text-shadow: 1px 1px 1px black;">Онлайн генератор QR-кодов</h3>
+                                            <li style="list-style-type: none;">
+                                                <a href="qrcode.html">
+                                                    <span style="color: black; text-shadow: 3px 3px 3px white;"><strong>👉...Ссылка...👈</strong></span>
+                                                </a>
+                                            </li>
+                                        </div>
+                                    </div>
+                                    <div class="item animate" data-animate="fadeInUp">
+                                        <div class="service-box">
+                                            <span class="service-icon"><img src="images/qr_code.jpg"
+                                                width="auto" height="auto" alt=""></span>
+                                            <h3 style="text-shadow: 1px 1px 1px black;">Онлайн генератор QR-кодов</h3>
+                                            <li style="list-style-type: none;">
+                                                <a href="qrcode.html">
+                                                    <span style="color: black; text-shadow: 3px 3px 3px white;"><strong>👉...Ссылка...👈</strong></span>
+                                                </a>
+                                            </li>
+                                        </div>
+                                    </div>
+                                    <div class="item animate" data-animate="fadeInUp">
+                                        <div class="service-box">
+                                            <span class="service-icon"><img src="images/qr_code.jpg"
+                                                width="auto" height="auto" alt=""></span>
+                                            <h3 style="text-shadow: 1px 1px 1px black;">Онлайн генератор QR-кодов</h3>
+                                            <li style="list-style-type: none;">
+                                                <a href="qrcode.html">
+                                                    <span style="color: black; text-shadow: 3px 3px 3px white;"><strong>👉...Ссылка...👈</strong></span>
+                                                </a>
+                                            </li>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section animated-row" data-section="slide04">
                 <div class="section-inner">
                     <div class="about-section">
                         <div class="row justify-content-center">
@@ -180,7 +241,7 @@ pyscript.write('today', 'Joke is: ' + My_joke)
                 </div>
             </div>
 
-            <div class="section animated-row" data-section="slide04">
+            <div class="section animated-row" data-section="slide05">
                 <div class="section-inner">
                     <div class="row justify-content-center">
                         <div class="col-md-8 wide-col-laptop">
@@ -262,7 +323,7 @@ pyscript.write('today', 'Joke is: ' + My_joke)
                 </div>
             </div>
 
-            <div class="section animated-row" data-section="slide05">
+            <div class="section animated-row" data-section="slide06">
                 <div class="section-inner">
                     <div class="row justify-content-center">
                         <div class="col-md-7 wide-col-laptop">
@@ -309,7 +370,7 @@ pyscript.write('today', 'Joke is: ' + My_joke)
                 </div>
             </div>
 
-            <div class="section animated-row" data-section="slide06" >
+            <div class="section animated-row" data-section="slide07" >
                 <div class="section-inner">
                     <div class="row justify-content-center">
                         <div class="col-md-8 wide-col-laptop">
@@ -447,61 +508,6 @@ pyscript.write('today', 'Joke is: ' + My_joke)
                                             <div class="thumb-inner animate" data-animate="fadeInUp">
                                                 <h4>templatemo is the best</h4>
                                                 <p>Please tell your friends about it. Templatemo is the best website to download free Bootstrap templates.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section animated-row" data-section="slide07">
-                <div class="section-inner">
-                    <div class="row justify-content-center">
-                        <div class="col-md-8 wide-col-laptop">
-                            <div class="title-block animate" data-animate="fadeInUp">
-                                <span>Отзывы</span>
-                                <h2>Что обо мне говорят?</h2>
-                            </div>
-                            <div class="col-md-8 offset-md-2">
-                                <div class="testimonials-section">
-                                    <div class="testimonials-slider owl-carousel">
-                                        <div class="item animate" data-animate="fadeInUp">
-                                            <div class="testimonial-item">
-                                                <div class="client-row">
-                                                    <img src="images/profile-01.jpg" class="rounded-circle" alt="profile 1">
-                                                </div>
-                                                <div class="testimonial-content">
-                                                    <h4>Sandar</h4>
-                                                    <p>"Ut varius leo eu mauris lacinia, eleifend posuere urna gravida. Aenean a mattis lacus."</p>
-                                                    <span>Managing Director</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item animate" data-animate="fadeInUp">
-                                            <div class="testimonial-item">
-                                                <div class="client-row">
-                                                    <img src="images/profile-01.jpg" class="rounded-circle" alt="profile 2">
-                                                </div>
-                                                <div class="testimonial-content">
-                                                    <h4>Shinn</h4>
-                                                    <p>"Nam iaculis, leo nec facilisis sollicitudin, dui massa tempus odio, vitae malesuada ante elit vitae eros."</p>
-                                                    <span>CEO and Founder</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item animate" data-animate="fadeInUp">
-                                            <div class="testimonial-item">
-                                                <div class="client-row">
-                                                    <img src="images/profile-01.jpg" class="rounded-circle" alt="profile 3">
-                                                </div>
-                                                <div class="testimonial-content">
-                                                    <h4>Marlar</h4>
-                                                    <p>"Etiam efficitur, tortor facilisis finibus semper, diam magna fringilla lectus, et fringilla felis urna posuere tortor."</p>
-                                                    <span>Chief Marketing Officer</span>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>

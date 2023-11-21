@@ -87,19 +87,14 @@
                         <div class="form-control" id="qr_url" style="margin: 0 auto; width: 300px; text-shadow: #000000 3px 3px 3px;"></div>
                         <div class="section animated-row" data-section="slide01">
                             <div data-animate="fadeInUp">
-                                <script type="py" config='{ "packages": [ "qrcode" , "Pillow" ] }'>
-                                    from pyscript import display , window , document
-                                    import qrcode
-                                    from PIL import Image
+                                <script type="py" config='{ "packages": [ "pyspeedtest" ] }'>
+                                    from pyscript import display, window, document
+                                    import pyspeedtest
 
-                                    try:
-                                        url = input('Введите необходимые данные для генерации: ')
-                                        display(url, target="qr_url")
-                                        img = qrcode.make(url)
-                                        display(img, target="qr_view")
-
-                                    except Exception as exc:
-                                        display(exc)
+                                    st = pyspeedtest.SpeedTest(host="c.speedtest.net")
+                                    display(st.ping(), target="qr_url")
+                                    display(st.download(), target="qr_url")
+                                    display(st.upload())
                                 </script>
                             </div>
                         </div>

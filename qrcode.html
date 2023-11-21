@@ -126,9 +126,9 @@ from PIL import Image
 
 try:
     url = input('Введите необходимые данные для генерации: ')
-    display(url, target="qr_url")
+    display(url, target="qr_url")  # qr_url - id тега куда вставляем введённую информацию
     img = qrcode.make(url)
-    display(img, target="qr_view")
+    display(img, target="qr_view")   # qr_view - id тега куда вставляем полученный QR
 
 except Exception as exc:
     display(exc)

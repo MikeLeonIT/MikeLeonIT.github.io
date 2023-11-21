@@ -53,10 +53,6 @@
                         Leonov_M.N. <br> <br>
                     </a>
 
-                        <audio controls="controls" ><!autoplay="autoplay" muted>
-                            <source src="voice.mp3" type="audio/mpeg">
-                        </audio>
-
                     <div class="navigation-row">
                         <nav id="navigation">
                             <button type="button" class="navbar-toggle"> <i class="fa fa-bars"></i> </button>
@@ -81,32 +77,24 @@
             <div class="section animated-row" data-section="slide01">
                 <div class="section-inner">
                     <div class="welcome-box">
-                        <audio controls="controls"><!autoplay="autoplay" muted>
-                            <source id="audio_speech" src={speech} type="audio/mpeg">
-                        </audio>
+                        <label for="avatar">Choose a pdf file:</label>
+
+                        <input type="file" id="pdf" name="pdf" accept=".pdf" />
                         <br><br>Ваш QR-код:<br></p>
                         <div class="contact-row" id="qr_view" style="margin: 0 auto; width: 300px;"></div>
                         <p style="color:#ffffff; font-size: 32px;
                                   font-weight: bolder; line-height: 100% ;
                                   text-shadow: #000000 3px 15px 30px;"><br><br>Введенные данные:<br></p>
                         <div class="form-control" id="qr_url" style="margin: 0 auto; width: 300px;"></div>
-                        <div class="section animated-row" data-section="slide01">
                             <div data-animate="fadeInUp">
-                                <script type="py" config='{ "packages": [ "gtts" , "urllib3", "idna", "click", "charset-normalizer", "certifi", "requests" ] }'>
-                                    from gtts import gTTS
+                                <script type="py" config='{ "packages": [  ] }'>
+                                    from PyPDF2 import PdfReader
 
-                                    try:
-                                        #text = input('')
-                                        text = 'dscc'
-                                        speech = gTTS(text=text, lang='ru', slow=True)
-                                        #speech.save("name_status.mp3")
-                                        display(speech)
-                                        #display(text, target="qr_url")
-                                        d#isplay(speech, target="audio_speech")
-
-                                    except Exception as exc:
-                                        display(exc)
+                                    reader = PdfReader("example.pdf")
+                                    page = reader.pages[0]
+                                    print(page.extract_text())
                                 </script>
+                                
                             </div>
                         </div>
                     </div>

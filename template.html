@@ -84,6 +84,8 @@
                                         <button class="btn" type="submit" py-click="get_url">Отправить</button>
                                         <label id="output">asd</label>
                                         <div class="contact-row" id="qr_view" style="margin: 0 auto; width: 300px; text-shadow: #000000 3px 3px 3px;"></div>
+                                        <a id="down" href="download/acme-doc-2.0.1.txt" download="Acme Documentation (ver. 2.0.1).txt">Download Text</a>
+
                                     </div>
                                     <div>
                                         <script type="py" config='{ "packages": [ "qrcode" , "Pillow" , "asyncio" ] }' output="output">
@@ -106,8 +108,15 @@
                                                     url = document.getElementById("url").value
                                                     img = qrcode.make(url)
                                                     display(url, target="output")
+                                                    
                                                     document.getElementById("output").innerHTML = url
                                                     display(img, target="qr_view")
+
+                                                    href = document.getElementById("qr_view").innerHTML
+                                                    src = href[href.find('="')+2:href.find('></')-1]
+                                                    link = f'<a id="down" href="{src}" download="{src}">Download Text</a>'
+                                                    document.getElementById("down").innerHTML = link
+
                                             except Exception as exc:
                                                 display(exc)
                                         </script>

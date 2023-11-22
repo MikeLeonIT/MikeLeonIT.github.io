@@ -79,6 +79,7 @@
                 <div class="input-field" style="margin: 5% 10%; position: block; text-shadow: #000000 3px 3px 3px;">
                     <input type="text" class="form-control" name="input_text" id="input_text" required placeholder="Введите значение для генерации: ">
                     <button class="btn" type="submit" py-click="get_url">Сгенерировать QR-код</button>
+                    <a id="down" href="{src}" download="{src}">👉...Сохранить QR-код...👈</a>
                 </div>
                 <div class="input-field" style="margin: 0 10%; position: block; text-shadow: #000000 3px 3px 3px;">
                     <p>Введённые данные:</p>
@@ -100,8 +101,13 @@
                                                     url = document.getElementById("input_text").value
                                                     img = qrcode.make(url)
                                                     display(url, target="text_show")
-                                                    #document.getElementById("output").innerHTML = url
                                                     display(img, target="qr_show")
+
+                                                    href = document.getElementById("qr_show").innerHTML
+                                                    src = href[href.find('="')+2:href.find('></')-1]
+                                                    link = f'<a id="down" href="{src}" download="{src}">👉...Сохранить QR-код...👈</a>'
+                                                    document.getElementById("down").innerHTML = link
+
                                             except Exception as exc:
                                                 display(exc)
                                         </script>

@@ -91,3 +91,29 @@
                                 </script>
                             </div>
                     </div>
+
+
+                                            try:
+                                                from pyscript import display, window, document
+                                                from gtts import gTTS
+
+
+                                                def get_url(*args):
+                                                    document.getElementById("qr_show").innerHTML = ""
+                                                    document.getElementById("text_show").innerHTML = ""
+                                                    url = document.getElementById("input_text").value
+                                                    display(url, target="text_show")
+                                                    display(img, target="qr_show")
+
+                                                    speech = gTTS(text=text, lang='ru', slow=True)
+                                                    speech.save("name_status.mp3")
+                                                    os.system("name_status.mp3")
+                                                    file.close()
+
+                                                    href = document.getElementById("qr_show").innerHTML
+                                                    src = href[href.find('="')+2:href.find('></')-1]
+                                                    link = f'<a id="down" href="{src}" download="{src}">👉...Сохранить QR-код...👈</a>'
+                                                    document.getElementById("down").innerHTML = link
+
+                                            except Exception as exc:
+                                                display(exc)

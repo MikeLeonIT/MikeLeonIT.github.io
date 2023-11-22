@@ -5,11 +5,16 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-    <meta name="description" content="OnLine Терминал Python">
-    <meta name="author" content="OnLine Терминал Python">
+    <meta name="description" content="OnLine Генератор QR-кодов Python">
+    <meta name="author" content="OnLine Генератор QR-кодов Python">
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900" rel="stylesheet">
-    <script type="module" src="https://pyscript.net/releases/2023.11.1/core.js"></script>
-    <title>Библиотеки и ПО by Leonov MN</title>
+    <!-- optional PyScript CSS -->
+    <link rel="stylesheet" href="https://pyscript.net/snapshots/2023.09.1.RC1/core.css">
+    <!-- This script tag bootstraps PyScript -->
+    <script type="module" src="https://pyscript.net/snapshots/2023.09.1.RC1/core.js"></script>
+    <!script type="module" src="https://pyscript.net/releases/2023.11.1/core.js"><!/script>
+
+    <title>Online generate QR by Leonov MN</title>
 
 
 
@@ -48,10 +53,6 @@
                         Leonov_M.N. <br> <br>
                     </a>
 
-                        <audio controls="controls"><!autoplay="autoplay" muted>
-                            <source src="voice.mp3" type="audio/mpeg">
-                        </audio>
-
                     <div class="navigation-row">
                         <nav id="navigation">
                             <button type="button" class="navbar-toggle"> <i class="fa fa-bars"></i> </button>
@@ -59,7 +60,8 @@
                                 <ul class="navigation-menu nav navbar-nav navbars" id="nav" style="text-shadow:
                                 3px 3px 3px black;">
                                     <li><a href="index.html">Главная</a></li>
-                                    <li data-menuanchor="slide01" class="active"><a href="#slide01">Главная</a></li>
+                                    <li data-menuanchor="slide01" class="active"><a href="#slide01">OnLine Генератор QR - кодов Python</a></li>
+                                    <li data-menuanchor="slide02"><a href="#slide02">Реализация</a></li>
                                 </ul>
                             </div>
                         </nav>
@@ -73,70 +75,79 @@
         </video>
 
         <div id="fullpage" class="fullpage-default">
-            <div class="section animated-row" data-section="slide01">
-                <div class="section-inner">
-                    <div class="welcome-box">
-                        <div class="section animated-row" data-section="slide01">
-                            <div data-animate="fadeInUp">
-                                <!form id="ajax-contact" method="POST" action="coder">
-                                    <div class="input-field">
-                                        <input type="text" class="form-control" name="url" id="url" required placeholder="Введите занчение для генерации: ">
-                                        <button class="btn" type="submit" py-click="get_url">Отправить</button>
-                                        <label id="output">asd</label>
-                                        <div class="contact-row" id="qr_view" style="margin: 0 auto; width: 300px; text-shadow: #000000 3px 3px 3px;"></div>
-                                        <a id="down" href="download/acme-doc-2.0.1.txt" download="Acme Documentation (ver. 2.0.1).txt">Download Text</a>
-
-                                    </div>
-                                    <div>
-                                        <script type="py" config='{ "packages": [ "qrcode" , "Pillow" , "asyncio" ] }' output="output">
+            <div class="section animated-row" data-section="slide01" style="max-width: 100%;height: auto;"><br><br>
+                <audio id="audio_controls" controls="controls" autoplay="autoplay" muted>
+                    <source id="audio_source" src="" type="audio/mpeg">
+                </audio>
+                <div class="input-field" style="margin: 5% 10%; position: block; text-shadow: #000000 3px 3px 3px;">
+                    <input type="text" class="form-control" name="input_text" id="input_text" required placeholder="Введите значение для генерации: ">
+                    <button class="btn" type="submit" py-click="get_url">Сгенерировать QR-код</button>
+                </div>
+                <div class="input-field" style="margin: 0 10%; position: block; text-shadow: #000000 3px 3px 3px;">
+                    <p>Введённые данные:</p>
+                    <label type="text" class="form-control" name="text_show" id="text_show" style="max-width: 100%; height: auto;"></label>
+                    <p>Ваш QR-код:</p>
+                    <a id="down">👉...Сохранить QR-код...👈</a>
+                    <div class="contact-row" id="qr_show" style="margin: 0 auto; width: 300px; text-shadow: #000000 3px 3px 3px;"></div>
+                </div>
+                <div>
+                    <script type="py" config='{ "packages": [ "gtts" , "Pillow" , "ssl" , "urllib3" , "playsound" ] }' output="qr_show">
 
                                             try:
                                                 from pyscript import display, window, document
-                                                import qrcode
-                                                import asyncio
-                                                from PIL import Image
-                                                #from pyscript.magic_js import document
-                                                #el_input = Element("input_id")
-                                                #url = 'mikeleonit.github.io'
-                                                #img = qrcode.make(url)
+                                                from gtts import gTTS
 
-                                                # url_element = document.getElementById()
-                                                # display(url_element)
 
-                                                def get_url(*args):
-                                                    document.getElementById("qr_view").innerHTML = ""
-                                                    url = document.getElementById("url").value
-                                                    img = qrcode.make(url)
-                                                    display(url, target="output")
-                                                    
-                                                    document.getElementById("output").innerHTML = url
-                                                    display(img, target="qr_view")
+                                                def get_url(*args, **kwargs):
+                                                    document.getElementById("qr_show").innerHTML = ""
+                                                    document.getElementById("text_show").innerHTML = ""
+                                                    text = document.getElementById("input_text").value
+                                                    display(text, target="text_show")
+                                                    #display(img, target="qr_show")
 
-                                                    href = document.getElementById("qr_view").innerHTML
-                                                    src = href[href.find('="')+2:href.find('></')-1]
-                                                    link = f'<a id="down" href="{src}" download="{src}">Download Text</a>'
-                                                    document.getElementById("down").innerHTML = link
+                                                    speech = gTTS(text=text, lang='ru', slow=True)
+                                                    #speech.save("name_status.mp3")
+                                                    #os.system("name_status.mp3")
+                                                    #file.close()
+
+                                                    href = document.getElementById("qr_show").innerHTML
+                                                    src = speech
+                                                    new_audio = f'<source id="audio_source" src="{src}" type="audio/mpeg">'
+                                                    #link = f'<a id="down" href="{src}" download="{src}">👉...Сохранить QR-код...👈</a>'
+                                                    document.getElementById("audio_controls").innerHTML = new_audio
 
                                             except Exception as exc:
                                                 display(exc)
                                         </script>
-                                    </div>
-                                <!/form>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
-        </div>            
 
+
+            <div class="section animated-row" data-section="slide02">
+                <div class="section-inner">
+                    <p class="animate" data-animate="fadeInUp" style="color:#ffffff; font-size: 32px;
+                    font-weight: bolder;
+                    line-height: 100% ; text-shadow: #000000 3px 15px 30px;">Реализация:</p>
+                    <textarea class="form-control" name="message"
+                              style="margin: auto auto; position: block; height: 500px; text-shadow: #000000 3px 3px 3px;">
+<link rel="stylesheet" href="https://pyscript.net/snapshots/2023.09.1.RC1/core.css">
+<!-- This script tag bootstraps PyScript -->
+<script type="module" src="https://pyscript.net/snapshots/2023.09.1.RC1/core.js"></script>
+.....
+
+.....
+                    </textarea>
+                </div>
+            </div>
+        </div>
 
         <div id="social-icons">
             <div class="text-right">
                 <ul class="social-icons">
-                    <li><a href="https://hh.ru/resume/3088f682ff0bde497f0039ed1f4a6657444174" title="Head Hunter" style="padding-top: 25%; max-width: 35px;"><img src="images/logo_hh.png" alt=""></a></li>
+                    <li><a href="https://hh.ru/resume/3088f682ff0bde497f0039ed1f4a6657444174" title="Head Hunter" style="max-width: 35px;"><img src="images/logo_hh.png" alt=""></a></li>
                     <li><a href="https://t.me/Mikhail_Leonov_91" title="Telegram"><i class="fa fa-paper-plane"></i></a></li>
                     <li><a href="https://github.com/MikeLeonIT" title="GitHub"><i class="fa fa-github"></i></a></li>
-                    <li><a href="https://www.codewars.com/users/MikeLeonIT" title="Codewars" style="padding-top: 15%; max-width: 35px;"><img src="images/logo_codewars.png" alt=""></a></li>
+                    <li><a href="https://www.codewars.com/users/MikeLeonIT" title="Codewars" style="max-width: 35px;"><img src="images/logo_codewars.png" alt=""></a></li>
                     <li><a href="tel:+79251725485" title="+79251725485"><i class="fa fa-phone"></i></a></li>
                 </ul>
             </div>

@@ -128,15 +128,23 @@
 .....
 <script type="py" config='{ "packages": [ "qrcode" , "Pillow" ] }'>
 
-from pyscript import display , window , document
-import qrcode
-from PIL import Image
-
 try:
-    url = input('Введите необходимые данные для генерации: ')
-    display(url, target="qr_url")  # qr_url - id тега куда вставляем введённую информацию
-    img = qrcode.make(url)
-    display(img, target="qr_view")   # qr_view - id тега куда вставляем полученный QR
+    from pyscript import display, window, document
+    import qrcode
+    from PIL import Image
+
+    def get_url(*args):
+        document.getElementById("qr_show").innerHTML = ""
+        document.getElementById("text_show").innerHTML = ""
+        url = document.getElementById("input_text").value
+        img = qrcode.make(url)
+        display(url, target="text_show")
+        display(img, target="qr_show")
+
+        href = document.getElementById("qr_show").innerHTML
+        src = href[href.find('="')+2 : href.find('></')-1]
+        link = f'<a id="down" href="{src}" download="{src}">👉...Сохранить QR-код...👈</a>'
+        document.getElementById("down").innerHTML = link
 
 except Exception as exc:
     display(exc)

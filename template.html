@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="fp-enabled" lang="en" style="overflow: visible; height: initial;">
 
   <head>
 
@@ -76,12 +76,10 @@
 
         <div id="fullpage" class="fullpage-default">
             <div class="section animated-row" data-section="slide01" style="max-width: 100%;height: auto;"><br><br>
-                <audio id="audio_controls" controls="controls" autoplay="autoplay" muted>
-                    <source id="audio_source" src="" type="audio/mpeg">
-                </audio>
+                <audio id="audio_controls" controls="controls" autoplay="autoplay" muted></audio>
                 <div class="input-field" style="margin: 5% 10%; position: block; text-shadow: #000000 3px 3px 3px;">
                     <input type="text" class="form-control" name="input_text" id="input_text" required placeholder="Введите значение для генерации: ">
-                    <button class="btn" type="submit" py-click="get_url">Сгенерировать QR-код</button>
+                    <button id="call" class="btn" type="submit" py-click="get_url" >Сгенерировать QR-код</button>
                 </div>
                 <div class="input-field" style="margin: 0 10%; position: block; text-shadow: #000000 3px 3px 3px;">
                     <p>Введённые данные:</p>
@@ -91,31 +89,53 @@
                     <div class="contact-row" id="qr_show" style="margin: 0 auto; width: 300px; text-shadow: #000000 3px 3px 3px;"></div>
                 </div>
                 <div>
-                    <script type="py" config='{ "packages": [ "gtts" , "Pillow" , "ssl" , "urllib3" , "playsound" ] }' output="qr_show">
+                    <script type="py" config='{ "packages": [ "gtts" , "ssl" ] }' output="audio_controls">
 
                                             try:
                                                 from pyscript import display, window, document
                                                 from gtts import gTTS
+                                                from io import BytesIO
+                                                #from pyodide.ffi import create_proxy
+                                                from urllib3 import connection
 
 
-                                                def get_url(*args, **kwargs):
+                                                async def get_url(*args, **kwargs):
                                                     document.getElementById("qr_show").innerHTML = ""
                                                     document.getElementById("text_show").innerHTML = ""
                                                     text = document.getElementById("input_text").value
                                                     display(text, target="text_show")
-                                                    #display(img, target="qr_show")
 
                                                     speech = gTTS(text=text, lang='ru', slow=True)
-                                                    #speech.save("name_status.mp3")
-                                                    #os.system("name_status.mp3")
-                                                    #file.close()
 
-                                                    href = document.getElementById("qr_show").innerHTML
-                                                    src = speech
-                                                    new_audio = f'<source id="audio_source" src="{src}" type="audio/mpeg">'
-                                                    #link = f'<a id="down" href="{src}" download="{src}">👉...Сохранить QR-код...👈</a>'
+                                                    await connection.connection.create_connection(
+                                                                                        ('translate.google.com', 443))
+                                                    with open(str(speech), "wb") as f:
+                                                        await speech.write_to_fp(BytesIO())
+
+
+                                                    new_audio = f'<source id="audio_source" src="voice.mp3" type="audio/mpeg">'
+
                                                     document.getElementById("audio_controls").innerHTML = new_audio
+                                                '''
+                                                async def process_file(event):
+                                                    document.getElementById("qr_show").innerHTML = ""
+                                                    document.getElementById("text_show").innerHTML = ""
+                                                    text = document.getElementById("input_text").value
+                                                    display(text, target="text_show")
 
+                                                    speech = BytesIO(gTTS(text=text, lang='ru', slow=True).write_to_fp("voice.mp3"))
+                                                    await speech.save("voice.mp3")
+                                                    def start():
+                                                        new_audio = f'<source id="audio_source" src="{speech}" type="audio/mpeg">'
+                                                        document.getElementById("audio_controls").innerHTML = new_audio
+                                                    await start()
+                                                def main():
+                                                    file_event = create_proxy(process_file)
+                                                    e = document.getElementById("input_text")
+                                                    e.addEventListener("change", file_event, True)
+                                                    e.currentTarget = "this"
+                                                main()
+                                                '''
                                             except Exception as exc:
                                                 display(exc)
                                         </script>

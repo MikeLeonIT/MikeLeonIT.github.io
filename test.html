@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
   </head>
+  <py-env>
+      - gtts
+  </py-env>
   <body>
     <p>This example shows how to read a file from the local file system and display its contents</p>
     <br />
@@ -26,29 +29,34 @@
       <div id="content">
       </div>
     </div>
-
+    <audio id="audio_controls" controls="controls" autoplay="autoplay" muted></audio>
     <py-script output="print_output">
-import asyncio
-from js import document, FileReader
-from pyodide import create_proxy
+try:
+    import asyncio
+    from js import document, FileReader
+    from pyodide import create_proxy
+    from gtts import gTTS
 
-async def process_file(event):
-	fileList = event.target.files.to_py()
+    async def process_file(event):
+        fileList = event.target.files.to_py()
+        #speech = gTTS(text=text, lang='ru', slow=True)
 
-	for f in fileList:
-		data = await f.text()
-		document.getElementById("content").innerHTML = data
+        for f in fileList:
+            data = await f.text()
+            document.getElementById("content").innerHTML = data
 
-def main():
-	# Create a Python proxy for the callback function
-	# process_file() is your function to process events from FileReader
-	file_event = create_proxy(process_file)
+    def main():
+        # Create a Python proxy for the callback function
+        # process_file() is your function to process events from FileReader
+        file_event = create_proxy(process_file)
 
-	# Set the listener to the callback
-	e = document.getElementById("myfile")
-	e.addEventListener("change", file_event, False)
+        # Set the listener to the callback
+        e = document.getElementById("myfile")
+        e.addEventListener("change", file_event, False)
 
-main()
+    main()
+except Exception as exc:
+    document.getElementById("print_output").innerHTML = exc
 </py-script>
 
 </body>

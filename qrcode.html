@@ -121,34 +121,10 @@
                     font-weight: bolder;
                     line-height: 100% ; text-shadow: #000000 3px 15px 30px;">Реализация:</p>
                     <textarea class="form-control" name="message"
-                              style="margin: auto auto; position: block; height: 500px; text-shadow: #000000 3px 3px 3px;">
-<link rel="stylesheet" href="https://pyscript.net/snapshots/2023.09.1.RC1/core.css">
-<!-- This script tag bootstraps PyScript -->
-<script type="module" src="https://pyscript.net/snapshots/2023.09.1.RC1/core.js"></script>
+                              style="margin: 0 0; position: block; max-width: 100%; height: 300px; text-shadow: #000000 3px 3px 3px;">
 .....
-<script type="py" config='{ "packages": [ "qrcode" , "Pillow" ] }'>
-
-try:
-    from pyscript import display, window, document
-    import qrcode
-    from PIL import Image
-
-    def get_url(*args):
-        document.getElementById("qr_show").innerHTML = ""
-        document.getElementById("text_show").innerHTML = ""
-        url = document.getElementById("input_text").value
-        img = qrcode.make(url)
-        display(url, target="text_show")
-        display(img, target="qr_show")
-
-        href = document.getElementById("qr_show").innerHTML
-        src = href[href.find('="')+2 : href.find('></')-1]
-        link = f'<a id="down" href="{src}" download="{src}">👉...Сохранить QR-код...👈</a>'
-        document.getElementById("down").innerHTML = link
-
-except Exception as exc:
-    display(exc)
-</script>
+Пишите в Telegram (ссылка справа)
+тел. 89251725485
 .....
                     </textarea>
                 </div>

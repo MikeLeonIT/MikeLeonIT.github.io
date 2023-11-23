@@ -117,3 +117,58 @@
 
                                             except Exception as exc:
                                                 display(exc)
+
+
+                                <script type="py" config='{ "packages": [ "pdfminer.six" ] }' output="print_output">
+                                    try:
+                                        import asyncio
+                                        import zipfile
+                                        from js import document, FileReader, Uint8Array
+                                        from pyodide.ffi import create_proxy
+                                        import io
+
+                                        async def process_file(event):
+                                            fileList = event.target.files.to_py()
+                                            for f in fileList:
+                                                data = Uint8Array.new(await f.arrayBuffer())
+                                                mf = io.BytesIO(bytearray(data))
+                                                with zipfile.ZipFile(mf,"r") as zf:
+                                                    nl=zf.namelist()
+                                                    nlf=" ".join(nl)
+                                                    document.getElementById("content").innerText += "\n Test 2: reading file from local file system: "+f.name+" content:"+nlf
+                                                with open("b.zip","wb") as outb:
+                                                    outb.write(bytearray(data))
+                                                with zipfile.ZipFile("b.zip", "r") as zf:
+                                                    nl=zf.namelist()
+                                                    nlf=" ".join(nl)
+                                                document.getElementById("content").innerText += "\n Test 3: reading the same file but first save it in virtual fs and read it: " + nlf
+
+
+
+                                        def main():
+                                            # Create a Python proxy for the callback function
+                                            # process_file() is your function to process events from FileReader
+                                            file_event = create_proxy(process_file)
+                                            # Set the listener to the callback
+                                            e = document.getElementById("myfile")
+                                            e.addEventListener("change", file_event, False)
+
+                                            mf = io.BytesIO()
+                                            with zipfile.ZipFile(mf, mode="w",compression=zipfile.ZIP_DEFLATED) as zf:
+                                                zf.writestr('file1.txt', b"hi")
+                                                zf.writestr('file2.txt', str.encode("hi"))
+                                                zf.writestr('file3.txt', str.encode("hi",'utf-8'))
+                                            with open("a.zip", "wb") as f: # use `wb` mode
+                                                f.write(mf.getvalue())
+
+                                            with zipfile.ZipFile("a.zip", "r") as zf:
+                                                nl=zf.namelist()
+                                                nlf=" ".join(nl)
+
+                                            document.getElementById("content").innerText = "Test 1: reading a dummy zip from virtual file system: " + nlf
+
+
+                                        main()
+                                    except Exception as exc:
+                                        document.getElementById("print_output").innerHTML = exc
+                                </script>

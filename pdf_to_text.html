@@ -90,42 +90,68 @@
                               <div id="content">
                             </div>
                                 <script type="py" config='{ "packages": [ "pdfminer.six" ] }' output="print_output">
-                                    try:
-                                        import pickle
-                                        import io
-                                        import asyncio
-                                        from js import document, FileReader
-                                        from pyodide.ffi import create_proxy
-                                        from pdfminer.converter import TextConverter
-                                        from pdfminer.pdfinterp import PDFPageInterpreter, PDFResourceManager
-                                        from pdfminer.pdfpage import PDFPage
+try:
+    import asyncio
+    import zipfile
+    from js import document, FileReader, Uint8Array
+    from pyodide.ffi import create_proxy
+    import shutil
+    import io
 
-                                        async def process_file(event):
-                                            fileList = event.target.files.to_py()
+    async def process_file(event):
+        fileList = event.target.files.to_py()
+
+        for f in fileList:
+            data = Uint8Array.new(await f.arrayBuffer())
+            #data= await f.text()
+            mf = io.BytesIO(bytearray(data))
+
+            try:
+                with open("new_file2","wb") as remote_file: # Mount new_file
+                    shutil.copyfileobj(mf, remote_file)
+                document.getElementById("content").innerText+= "\n Test 2: Смонтирован ли загруженный файл?: " + f.name + " new_file2"
+            except Exception as exc:
+                document.getElementById("content").innerText+= "\n Test 2: Читается ли загруженный файл?: "+f.name+" False"
+                document.getElementById("content").innerText+= f"\n {exc}"
+                
+            with open("b.zip","wb") as outb:
+                outb.write(bytearray(data))
+
+            with zipfile.ZipFile("b.zip", "r") as zf:
+                nl=zf.namelist()
+                nlf=" ".join(nl)
+
+            document.getElementById("content").innerText += "\n Test 3: reading the same file but first save it in virtual fs and read it: " + nlf
 
 
-                                            for f in fileList:
-                                                document.getElementById("content").innerHTML = f.name
-                                                if f.name.split('.')[-1] == 'pdf':
-                                                    document.getElementById("content").innerHTML = "ebat"
-                                                    pickle.dump(obj, file, protocol = None, *, fix_imports = True)
-                                                    document.getElementById("content").innerHTML = file
-                                                else:
-                                                    data = await f.text()
-                                                    document.getElementById("content").innerHTML = data
 
-                                        def main():
+    def main():
+        # Create a Python proxy for the callback function
+        # process_file() is your function to process events from FileReader
+        file_event = create_proxy(process_file)
+        # Set the listener to the callback
+        e = document.getElementById("myfile")
+        e.addEventListener("change", file_event, False)
 
-                                            file_event = create_proxy(process_file)
+        mf = io.BytesIO()
+        '''
+        with zipfile.ZipFile(mf, mode="w",compression=zipfile.ZIP_DEFLATED) as zf:
+            zf.writestr('file1.txt', b"hi")
+            zf.writestr('file2.txt', str.encode("hi"))
+            zf.writestr('file3.txt', str.encode("hi",'utf-8'))
+        '''
+        with open("new_file", "wb") as f: # use `wb` mode
+            f.write(mf.getvalue())
 
+        with open("new_file", "rb") as file:
+            #nl=zf.namelist()
+            nlf = f'Читается ли новый виртуальный файл?: {file.readable()}'
 
-                                            e = document.getElementById("myfile")
-                                            e.addEventListener("change", file_event, False)
+        document.getElementById("content").innerText = "Test 1: " + nlf
+    main()
 
-                                        main()
-
-                                    except Exception as exc:
-                                        document.getElementById("print_output").innerHTML = exc
+except Exception as exc:
+    document.getElementById("print_output").innerHTML = exc
                                 </script>
                             </div>
                         </div>

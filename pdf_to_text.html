@@ -77,24 +77,55 @@
             <div class="section animated-row" data-section="slide01">
                 <div class="section-inner">
                     <div class="welcome-box">
-                        <p style="color:#ffffff; font-size: 32px;
-                                  font-weight: bolder; line-height: 100% ;
-                                  text-shadow: #000000 3px 3px 15px;"><br><br>Ваш QR-код:<br></p>
-                        <div class="contact-row" id="qr_view" style="margin: 0 auto; width: 300px; text-shadow: #000000 3px 3px 3px;"></div>
-                        <p style="color:#ffffff; font-size: 32px;
-                                  font-weight: bolder; line-height: 100% ;
-                                  text-shadow: #000000 3px 3px 15px;"><br><br>Введённые данные:<br></p>
-                        <div class="form-control" id="qr_url" style="margin: 0 auto; width: 300px; text-shadow: #000000 3px 3px 3px;"></div>
-                        <div class="section animated-row" data-section="slide01">
-                            <div data-animate="fadeInUp">
-                                <script type="py" config='{ "packages": [ "pyspeedtest" ] }'>
-                                    from pyscript import display, window, document
-                                    import pyspeedtest
+                            <br />
+                            <label for="myfile">Select a file:</label>
+                            <input type="file" id="myfile" name="myfile">
+                            <br />
+                            <br />
+                            <div id="print_output"></div>
+                            <br />
+                            <a id="down">👉...Сохранить File...👈</a>
+                            <p>File Content:</p>
+                            <div style="border:2px inset #AAA;cursor:text;height:120px;overflow:auto;width:600px; resize:both">
+                              <div id="content">
+                            </div>
+                                <script type="py" config='{ "packages": [ "pdfminer.six" ] }' output="print_output">
+                                    try:
+                                        import pickle
+                                        import io
+                                        import asyncio
+                                        from js import document, FileReader
+                                        from pyodide.ffi import create_proxy
+                                        from pdfminer.converter import TextConverter
+                                        from pdfminer.pdfinterp import PDFPageInterpreter, PDFResourceManager
+                                        from pdfminer.pdfpage import PDFPage
 
-                                    st = pyspeedtest.SpeedTest(host="c.speedtest.net")
-                                    display(st.ping(), target="qr_url")
-                                    display(st.download(), target="qr_url")
-                                    display(st.upload())
+                                        async def process_file(event):
+                                            fileList = event.target.files.to_py()
+
+
+                                            for f in fileList:
+                                                document.getElementById("content").innerHTML = f.name
+                                                if f.name.split('.')[-1] == 'pdf':
+                                                    document.getElementById("content").innerHTML = "ebat"
+                                                    pickle.dump(obj, file, protocol = None, *, fix_imports = True)
+                                                    document.getElementById("content").innerHTML = file
+                                                else:
+                                                    data = await f.text()
+                                                    document.getElementById("content").innerHTML = data
+
+                                        def main():
+
+                                            file_event = create_proxy(process_file)
+
+
+                                            e = document.getElementById("myfile")
+                                            e.addEventListener("change", file_event, False)
+
+                                        main()
+
+                                    except Exception as exc:
+                                        document.getElementById("print_output").innerHTML = exc
                                 </script>
                             </div>
                         </div>

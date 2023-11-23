@@ -89,56 +89,23 @@
                     <div class="contact-row" id="qr_show" style="margin: 0 auto; width: 300px; text-shadow: #000000 3px 3px 3px;"></div>
                 </div>
                 <div>
-                    <script type="py" config='{ "packages": [ "gtts" , "ssl" ] }' output="audio_controls">
+                    <script type="py" config='{ "packages": [ "speakerpy" , "asyncio" ] }' output="audio_controls">
 
-                                            try:
-                                                from pyscript import display, window, document
-                                                from gtts import gTTS
-                                                from io import BytesIO
-                                                #from pyodide.ffi import create_proxy
-                                                from urllib3 import connection
-
-
-                                                async def get_url(*args, **kwargs):
-                                                    document.getElementById("qr_show").innerHTML = ""
-                                                    document.getElementById("text_show").innerHTML = ""
-                                                    text = document.getElementById("input_text").value
-                                                    display(text, target="text_show")
-
-                                                    speech = gTTS(text=text, lang='ru', slow=True)
-
-                                                    await connection.connection.create_connection(
-                                                                                        ('translate.google.com', 443))
-                                                    with open(str(speech), "wb") as f:
-                                                        await speech.write_to_fp(BytesIO())
-
-
-                                                    new_audio = f'<source id="audio_source" src="voice.mp3" type="audio/mpeg">'
-
-                                                    document.getElementById("audio_controls").innerHTML = new_audio
-                                                '''
-                                                async def process_file(event):
-                                                    document.getElementById("qr_show").innerHTML = ""
-                                                    document.getElementById("text_show").innerHTML = ""
-                                                    text = document.getElementById("input_text").value
-                                                    display(text, target="text_show")
-
-                                                    speech = BytesIO(gTTS(text=text, lang='ru', slow=True).write_to_fp("voice.mp3"))
-                                                    await speech.save("voice.mp3")
-                                                    def start():
-                                                        new_audio = f'<source id="audio_source" src="{speech}" type="audio/mpeg">'
-                                                        document.getElementById("audio_controls").innerHTML = new_audio
-                                                    await start()
-                                                def main():
-                                                    file_event = create_proxy(process_file)
-                                                    e = document.getElementById("input_text")
-                                                    e.addEventListener("change", file_event, True)
-                                                    e.currentTarget = "this"
-                                                main()
-                                                '''
-                                            except Exception as exc:
-                                                display(exc)
-                                        </script>
+                        try:
+                            from speakerpy.lib_speak import Speaker
+                            from speakerpy.lib_sl_text import SeleroText
+                            async def get_url():
+                                try:
+                                    text = SeleroText("Пример текста для синтеза речи")
+                                    speaker = Speaker(model_id="ru_v3", language="ru", speaker="aidar", device="cpu")
+                                    speaker.speak(text=text, sample_rate=48000, speed=1.0)
+                                    display(text, target="text_show")
+                                    display(speaker, target="qr_show")
+                                except Exception as exc:
+                                    display(exc)
+                        except Exception as exc:
+                            display(exc)
+                    </script>
                 </div>
             </div>
 

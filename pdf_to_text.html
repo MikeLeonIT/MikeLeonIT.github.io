@@ -73,6 +73,10 @@
             <source src="images/video_back.mp4" type="video/mp4">
         </video>
 
+        <audio autoplay muted id="audio_file">
+            <source src="" >
+        </audio>
+
         <div id="fullpage" class="fullpage-default">
             <div class="section animated-row" data-section="slide01">
                 <div class="section-inner">
@@ -111,9 +115,9 @@ try:
                     shutil.copyfileobj(mf, remote_file)
                 document.getElementById("content").innerText+= "\n Test 2: Смонтирован ли загруженный файл?: " + f.name + " new_file2"
             except Exception as exc:
-                document.getElementById("content").innerText+= "\n Test 2: Читается ли загруженный файл?: "+f.name+" False"
+                document.getElementById("content").innerText+= "\n Test 2: Читается ли загруженный файл?: " + f.name + " False"
                 document.getElementById("content").innerText+= f"\n {exc}"
-                
+
             with open("b.zip","wb") as outb:
                 outb.write(bytearray(data))
 
@@ -122,6 +126,7 @@ try:
                 nlf=" ".join(nl)
 
             document.getElementById("content").innerText += "\n Test 3: reading the same file but first save it in virtual fs and read it: " + nlf
+
 
 
 

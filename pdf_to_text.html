@@ -14,7 +14,7 @@
     <script type="module" src="https://pyscript.net/snapshots/2023.09.1.RC1/core.js"></script>
     <!script type="module" src="https://pyscript.net/releases/2023.11.1/core.js"><!/script>
 
-    <title>Online generate QR by Leonov MN</title>
+    <title>Online PDF - text_exTractor by Leonov MN</title>
 
 
 
@@ -60,7 +60,7 @@
                                 <ul class="navigation-menu nav navbar-nav navbars" id="nav" style="text-shadow:
                                 3px 3px 3px black;">
                                     <li><a href="index.html">Главная</a></li>
-                                    <li data-menuanchor="slide01" class="active"><a href="#slide01">Генератор QR - кодов</a></li>
+                                    <li data-menuanchor="slide01" class="active"><a href="#slide01">Online PDF - text_exTractor by Leonov MN</a></li>
                                 </ul>
                             </div>
                         </nav>
@@ -101,6 +101,7 @@ try:
     from pyodide.ffi import create_proxy
     import shutil
     import io
+    from pdfminer.high_level import extract_text
 
     async def process_file(event):
         fileList = event.target.files.to_py()
@@ -117,15 +118,23 @@ try:
             except Exception as exc:
                 document.getElementById("content").innerText+= "\n Test 2: Читается ли загруженный файл?: " + f.name + " False"
                 document.getElementById("content").innerText+= f"\n {exc}"
+            try:
+                with open("new_file2","wb") as outb:
+                    outb.write(bytearray(data))
 
-            with open("b.zip","wb") as outb:
-                outb.write(bytearray(data))
+                with open("new_file2", "rb") as zf:
+                    #nl=zf.namelist()
+                    #nlf=" ".join(nl)
+                    #list1 = [x.rstrip() for x in zf]
+                    PDFread = extract_text(zf)
+                    document.getElementById("content").innerText += zf.__repr__()
+                    document.getElementById("content").innerText += "\n Test 3: Пока не понятно?: " + f.name + " True"
+                    document.getElementById("content").innerText += str(PDFread)
+            except Exception as exc:
+                document.getElementById("content").innerText+= "\n Test 3: Пока не понятно?: " + f.name + " False"
+                document.getElementById("content").innerText+= f"\n {exc}"
 
-            with zipfile.ZipFile("b.zip", "r") as zf:
-                nl=zf.namelist()
-                nlf=" ".join(nl)
-
-            document.getElementById("content").innerText += "\n Test 3: reading the same file but first save it in virtual fs and read it: " + nlf
+            #document.getElementById("content").innerText += "\n Test 3: reading the same file but first save it in virtual fs and read it: " + nlf
 
 
 

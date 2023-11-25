@@ -1,63 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>File System Examples</title>
-    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
-    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
-  </head>
-  <py-env>
-      - gtts
-  </py-env>
-  <body>
-    <p>This example shows how to read a file from the local file system and display its contents</p>
-    <br />
-    <p>Warning: Not every file type will display. PyScript removes content with tags such as XML, HTML, PHP, etc. Normal text files will work.</p>
-    <br />
-    <p>No content type checking is performed to detect images, executables, etc.</p>
-    <br />
-    <label for="myfile">Select a file:</label>
-    <input type="file" id="myfile" name="myfile">
-    <br />
-    <br />
-    <div id="print_output"></div>
-    <br />
-    <p>File Content:</p>
-    <div style="border:2px inset #AAA;cursor:text;height:120px;overflow:auto;width:600px; resize:both">
-      <div id="content">
-      </div>
-    </div>
-    <audio id="audio_controls" controls="controls" autoplay="autoplay" muted></audio>
-    <py-script output="print_output">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <meta name="description" content="OnLine Терминал Python">
+    <meta name="author" content="OnLine Терминал Python">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900" rel="stylesheet">
+    <!-- optional PyScript CSS -->
+    <link rel="stylesheet" href="https://pyscript.net/snapshots/2023.09.1.RC1/core.css">
+    <!-- This script tag bootstraps PyScript -->
+    <script type="module" src="https://pyscript.net/snapshots/2023.09.1.RC1/core.js"></script>
+    <!script type="module" src="https://pyscript.net/releases/2023.11.1/core.js"><!/script>
+
+    <title>Online PDF - text_exTractor by Leonov MN</title>
+
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="css/fullpage.min.css">
+    <link rel="stylesheet" type="text/css" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/templatemo-style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    </head>
+    <meta name="google-site-verification" content="0mGKW8eGnqsaD-cuHBCMIkwtCdkctotvXssEOfkVbR4" />
+
+    <body>
+
+    <div id="video">
+        <div class="preloader">
+            <div class="preloader-bounce">
+                <span></span>
+            </div>
+        </div>
+
+        <header id="header">
+
+            <div class="container-fluid">
+                <div class="navbar">
+                    <a href="index.html" id="logo" title="OnLine Терминал Python by Leonov MN" style="color:#ffffff; font-size: 32px;
+                    font-weight: bolder;
+                    line-height: 100% ; text-shadow: #000000 3px 15px 15px;"><img src="images/logo_python.png"
+                                                                                  width="50" height="50"
+                                                                                  class="fa fa-refresh"
+                                                                                  style="text-shadow: #000000 3px 15px 15px"
+                                                                                  alt="">
+                        Leonov_M.N. <br> <br>
+                    </a>
+
+                    <div class="navigation-row">
+                        <nav id="navigation">
+                            <button type="button" class="navbar-toggle"> <i class="fa fa-bars"></i> </button>
+                            <div class="nav-box navbar-collapse">
+                                <ul class="navigation-menu nav navbar-nav navbars" id="nav" style="text-shadow:
+                                3px 3px 3px black;">
+                                    <li><a href="index.html">Главная</a></li>
+                                    <li data-menuanchor="slide01" class="active"><a href="#slide01">Генератор QR - кодов</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <video autoplay muted loop id="myVideo">
+            <source src="images/video_back.mp4" type="video/mp4">
+        </video>
+
+        <audio autoplay muted id="audio_file">
+            <source src="" >
+        </audio>
+
+        <div id="fullpage" class="fullpage-default">
+            <div class="section animated-row" data-section="slide01">
+                <div class="section-inner">
+                    <div class="welcome-box">
+                            <br />
+                            <label for="myfile">Select a file:</label>
+                            <input type="file" id="myfile" name="myfile">
+                            <br />
+                            <br />
+                            <div id="print_output"></div>
+                            <br />
+                            <a id="down">👉...Сохранить File...👈</a>
+                            <p>File Content:</p>
+                            <div style="border:2px inset #AAA;cursor:text;height:120px;overflow:auto;width:600px; resize:both">
+                              <div id="content">
+                            </div>
+                                <script type="py" config='{ "packages": [ "pdfminer.six" ] }' output="print_output">
 try:
-    import asyncio
-    from js import document, FileReader
-    from pyodide import create_proxy
-    from gtts import gTTS
 
-    async def process_file(event):
-        fileList = event.target.files.to_py()
-        #speech = gTTS(text=text, lang='ru', slow=True)
+    from js import document, FileReader, Uint8Array
+    from pyodide.ffi import create_proxy
+    from pdfminer.high_level import extract_text
 
-        for f in fileList:
-            data = await f.text()
-            document.getElementById("content").innerHTML = data
+    e = document.getElementById("myfile")
+    #e.addEventListener("change", file_event, False)
+    document.getElementById("print_output").innerHTML = e.name
+    #PDFread = extract_text(e)
+    #with open(e.name, "rb") as zf:
+        #PDFread = extract_text(e)
+    
 
-    def main():
-        # Create a Python proxy for the callback function
-        # process_file() is your function to process events from FileReader
-        file_event = create_proxy(process_file)
-
-        # Set the listener to the callback
-        e = document.getElementById("myfile")
-        e.addEventListener("change", file_event, False)
-
-    main()
 except Exception as exc:
     document.getElementById("print_output").innerHTML = exc
-</py-script>
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-</body>
+
+        <div id="social-icons">
+            <div class="text-right">
+                <ul class="social-icons">
+                    <li><a href="https://hh.ru/resume/3088f682ff0bde497f0039ed1f4a6657444174" title="Head Hunter" style="max-width: 35px;"><img src="images/logo_hh.png" alt=""></a></li>
+                    <li><a href="https://t.me/Mikhail_Leonov_91" title="Telegram"><i class="fa fa-paper-plane"></i></a></li>
+                    <li><a href="https://github.com/MikeLeonIT" title="GitHub"><i class="fa fa-github"></i></a></li>
+                    <li><a href="https://www.codewars.com/users/MikeLeonIT" title="Codewars" style="max-width: 35px;"><img src="images/logo_codewars.png" alt=""></a></li>
+                    <li><a href="tel:+79251725485" title="+79251725485"><i class="fa fa-phone"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/fullpage.min.js"></script>
+    <script src="js/scrolloverflow.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.inview.min.js"></script>
+    <script src="js/form.js"></script>
+    <script src="js/custom.js"></script>
+    <script src="js/jquery-2.1.0.min.js"></script>
+	<script src="js/app.js"></script>
+
+
+  </body>
 </html>

@@ -14,7 +14,7 @@
     <script type="module" src="https://pyscript.net/snapshots/2023.09.1.RC1/core.js"></script>
     <!script type="module" src="https://pyscript.net/releases/2023.11.1/core.js"><!/script>
 
-    <title>Online generate QR by Leonov MN</title>
+    <title>Online PDF - text_exTractor by Leonov MN</title>
 
 
 
@@ -35,6 +35,9 @@
     <div id="video">
         <div class="preloader">
             <div class="preloader-bounce">
+                <span></span>
+                <span></span>
+                <span></span>
                 <span></span>
             </div>
         </div>
@@ -60,7 +63,8 @@
                                 <ul class="navigation-menu nav navbar-nav navbars" id="nav" style="text-shadow:
                                 3px 3px 3px black;">
                                     <li><a href="index.html">Главная</a></li>
-                                    <li data-menuanchor="slide01" class="active"><a href="#slide01">Генератор QR - кодов</a></li>
+                                    <li data-menuanchor="slide01" class="active"><a href="#slide01">Online PDF - text_exTractor by Leonov MN</a></li>
+                                    <li data-menuanchor="slide02"><a href="#slide02">Реализация</a></li>
                                 </ul>
                             </div>
                         </nav>
@@ -73,14 +77,10 @@
             <source src="images/video_back.mp4" type="video/mp4">
         </video>
 
-        <audio autoplay muted id="audio_file">
-            <source src="" >
-        </audio>
-
         <div id="fullpage" class="fullpage-default">
-            <div class="section animated-row" data-section="slide01">
-                <div class="section-inner">
-                    <div class="welcome-box">
+            <div class="section animated-row" data-section="slide01" style="padding: 1em;"><br><br>
+                <div class="section-inner" >
+                    <div class="welcome-box" style="overflow: auto;">
                             <br />
                             <label for="myfile">Select a file:</label>
                             <input type="file" id="myfile" name="myfile">
@@ -88,11 +88,9 @@
                             <br />
                             <div id="print_output"></div>
                             <br />
-                            <a id="down">👉...Сохранить File...👈</a>
                             <p>File Content:</p>
-                            <div style="border:2px inset #AAA;cursor:text;height:120px;overflow:auto;width:600px; resize:both">
-                              <div id="content">
-                            </div>
+                            <form id="text1" class="form-control" name="text"
+                                          style="text-align: left; height: 500px; text-shadow: #000000 3px 3px 3px; position: block; overflow: auto" ></form>
                                 <script type="py" config='{ "packages": [ "pdfminer.six" ] }' output="print_output">
 try:
     import asyncio
@@ -101,58 +99,55 @@ try:
     from pyodide.ffi import create_proxy
     import shutil
     import io
+    from pdfminer.high_level import extract_text
 
     async def process_file(event):
         fileList = event.target.files.to_py()
 
         for f in fileList:
             data = Uint8Array.new(await f.arrayBuffer())
-            #data= await f.text()
             mf = io.BytesIO(bytearray(data))
 
             try:
                 with open("new_file2","wb") as remote_file: # Mount new_file
                     shutil.copyfileobj(mf, remote_file)
-                document.getElementById("content").innerText+= "\n Test 2: Смонтирован ли загруженный файл?: " + f.name + " new_file2"
+                document.getElementById("print_output").innerText = "\n Test 2: Смонтирован ли загруженный файл?: " + f.name + " new_file2"
             except Exception as exc:
-                document.getElementById("content").innerText+= "\n Test 2: Читается ли загруженный файл?: " + f.name + " False"
-                document.getElementById("content").innerText+= f"\n {exc}"
+                document.getElementById("print_output").innerText = "\n Test 2: Читается ли загруженный файл?: " + f.name + " False"
+                document.getElementById("print_output").innerText += f"\n {exc}"
+            try:
+                with open("new_file2","wb") as outb:
+                    outb.write(bytearray(data))
 
-            with open("b.zip","wb") as outb:
-                outb.write(bytearray(data))
+                with open("new_file2", "rb") as zf:
+                    PDFread = "".join([x for x in extract_text(zf)])
+                    document.getElementById("print_output").innerText = zf.__repr__()
+                    document.getElementById("print_output").innerText += "\n Test 3: Пока не понятно?: " + f.name + " True"
+                    document.getElementById("text1").innerText = PDFread
+            except Exception as exc:
+                document.getElementById("print_output").innerText = "\n Test 3: Пока не понятно?: " + f.name + " False"
+                document.getElementById("print_output").innerText += f"\n {exc}"
 
-            with zipfile.ZipFile("b.zip", "r") as zf:
-                nl=zf.namelist()
-                nlf=" ".join(nl)
-
-            document.getElementById("content").innerText += "\n Test 3: reading the same file but first save it in virtual fs and read it: " + nlf
+            #document.getElementById("print_output").innerText += "\n Test 3: reading the same file but first save it in virtual fs and read it: " + nlf
 
 
 
 
     def main():
-        # Create a Python proxy for the callback function
-        # process_file() is your function to process events from FileReader
         file_event = create_proxy(process_file)
-        # Set the listener to the callback
+
         e = document.getElementById("myfile")
         e.addEventListener("change", file_event, False)
 
         mf = io.BytesIO()
-        '''
-        with zipfile.ZipFile(mf, mode="w",compression=zipfile.ZIP_DEFLATED) as zf:
-            zf.writestr('file1.txt', b"hi")
-            zf.writestr('file2.txt', str.encode("hi"))
-            zf.writestr('file3.txt', str.encode("hi",'utf-8'))
-        '''
+
         with open("new_file", "wb") as f: # use `wb` mode
             f.write(mf.getvalue())
 
         with open("new_file", "rb") as file:
-            #nl=zf.namelist()
             nlf = f'Читается ли новый виртуальный файл?: {file.readable()}'
 
-        document.getElementById("content").innerText = "Test 1: " + nlf
+        document.getElementById("print_output").innerText = "Test 1: " + nlf
     main()
 
 except Exception as exc:
@@ -161,10 +156,23 @@ except Exception as exc:
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
 
+
+                    <div class="section animated-row" data-section="slide02" style="padding: 1em;">
+                        <div class="section-inner">
+                            <p class="animate" data-animate="fadeInUp" style="color:#ffffff; font-size: 32px;
+                            font-weight: bolder;
+                            line-height: 100% ; text-shadow: #000000 3px 15px 30px;">Реализация:</p>
+                            <textarea class="form-control" name="message"
+                                      style="margin: 0 0; position: block; max-width: 100%; height: 300px; text-shadow: #000000 3px 3px 3px;">
+        .....
+        Пишите в Telegram (ссылка справа)
+        тел. 89251725485
+        .....
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
 
         <div id="social-icons">
             <div class="text-right">

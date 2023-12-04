@@ -91,13 +91,14 @@
                     <script type="py" config='{ "packages": ["pytube" , "ssl"], "fetch": [ { "files": [ "test_ui.py" ]  } ] }' output="qr_show">
                         try:
                             from pyscript import display, window, document
+                            from pyodide.http import open_url, pyfetch
                             import pytube
                             import test_ui
                             import asyncio
 
-                            async def get_url(*args):
-                                f = await test_ui.start_ui()
-                                display(f, target="qr_show")
+                            def get_url(*args):
+                                f = test_ui.start_ui()
+
                         except Exception as exc:
                             display(exc)
                     </script>

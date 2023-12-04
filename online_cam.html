@@ -82,7 +82,7 @@
                 <div class="section-inner">
                     <div class="welcome-box">
                             <br />
-                            <image id="img" src="images/API.jpg"><button class="btn" type="submit" py-click="get_url">Отправить</button></image>
+                            <!image id="img" src="images/API.jpg"><button class="btn" type="submit" py-click="get_url">Отправить</button><!/image>
                             <br />
                             <br />
                             <p id="print_output">...</p>
@@ -96,8 +96,8 @@
                                         def get_url(*args):
                                             display('huy', target="print_output")
                                             reader = easyocr.Reader(['en'])
-                                            result = reader.readtext("images/API.jpg")
-                                            display(result, target="print_output")
+                                            result = reader.readtext("images/Front_full.jpg")
+                                            display(result)
                                     except Exception as exc:
                                         display(exc)
                                 </script>

@@ -5,8 +5,8 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-    <meta name="description" content="OnLine Терминал Python">
-    <meta name="author" content="OnLine Терминал Python">
+    <meta name="description" content="OnLine Генератор QR-кодов Python">
+    <meta name="author" content="OnLine Генератор QR-кодов Python">
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900" rel="stylesheet">
     <!-- optional PyScript CSS -->
     <link rel="stylesheet" href="https://pyscript.net/snapshots/2023.09.1.RC1/core.css">
@@ -14,7 +14,7 @@
     <script type="module" src="https://pyscript.net/snapshots/2023.09.1.RC1/core.js"></script>
     <!script type="module" src="https://pyscript.net/releases/2023.11.1/core.js"><!/script>
 
-    <title>Online PDF - text_exTractor by Leonov MN</title>
+    <title>Online generate QR by Leonov MN</title>
 
 
 
@@ -60,7 +60,8 @@
                                 <ul class="navigation-menu nav navbar-nav navbars" id="nav" style="text-shadow:
                                 3px 3px 3px black;">
                                     <li><a href="index.html">Главная</a></li>
-                                    <li data-menuanchor="slide01" class="active"><a href="#slide01">Генератор QR - кодов</a></li>
+                                    <li data-menuanchor="slide01" class="active"><a href="#slide01">OnLine Генератор QR - кодов Python</a></li>
+                                    <li data-menuanchor="slide02"><a href="#slide02">Реализация</a></li>
                                 </ul>
                             </div>
                         </nav>
@@ -73,51 +74,52 @@
             <source src="images/video_back.mp4" type="video/mp4">
         </video>
 
-        <audio autoplay muted id="audio_file">
-            <source src="" >
-        </audio>
-
         <div id="fullpage" class="fullpage-default">
-            <div class="section animated-row" data-section="slide01">
+            <div class="section animated-row" data-section="slide01" style="max-width: 100%;height: auto;"><br><br>
+                <div class="input-field" style="margin: 5% 10%; position: block; text-shadow: #000000 3px 3px 3px;">
+                    <input type="text" class="form-control" name="input_text" id="input_text" required placeholder="Введите значение для генерации: ">
+                    <button class="btn" type="submit" py-click="get_url">Сгенерировать QR-код</button>
+                </div>
+                <div class="input-field" style="margin: 0 10%; position: block; text-shadow: #000000 3px 3px 3px;">
+                    <p>Введённые данные:</p>
+                    <label type="text" class="form-control" name="text_show" id="text_show" style="max-width: 100%; height: auto;"></label>
+                    <p>Ваш QR-код:</p>
+                    <a id="down">👉...Сохранить QR-код...👈</a>
+                    <div class="contact-row" id="qr_show" style="margin: 0 auto; width: 300px; text-shadow: #000000 3px 3px 3px;"></div>
+                </div>
+                <div>
+                    <script type="py" config='{ "packages": ["pytube" , "ssl"], "fetch": [ { "files": [ "test_ui.py" ]  } ] }' output="qr_show">
+                        try:
+                            from pyscript import display, window, document
+                            import pytube
+                            import test_ui
+                            import asyncio
+
+                            async def get_url(*args):
+                                f = await test_ui.start_ui()
+                                display(f, target="qr_show")
+                        except Exception as exc:
+                            display(exc)
+                    </script>
+                </div>
+            </div>
+
+
+            <div class="section animated-row" data-section="slide02">
                 <div class="section-inner">
-                    <div class="welcome-box">
-                            <br />
-                            <label for="myfile">Select a file:</label>
-                            <input type="file" id="myfile" name="myfile">
-                            <br />
-                            <br />
-                            <div id="print_output"></div>
-                            <br />
-                            <a id="down">👉...Сохранить File...👈</a>
-                            <p>File Content:</p>
-                            <div style="border:2px inset #AAA;cursor:text;height:120px;overflow:auto;width:600px; resize:both">
-                              <div id="content">
-                            </div>
-                                <script type="py" config='{ "packages": [ "pdfminer.six" ] }' output="print_output">
-try:
-
-    from js import document, FileReader, Uint8Array
-    from pyodide.ffi import create_proxy
-    from pdfminer.high_level import extract_text
-
-    e = document.getElementById("myfile")
-    #e.addEventListener("change", file_event, False)
-    document.getElementById("print_output").innerHTML = e.name
-    #PDFread = extract_text(e)
-    #with open(e.name, "rb") as zf:
-        #PDFread = extract_text(e)
-    
-
-except Exception as exc:
-    document.getElementById("print_output").innerHTML = exc
-                                </script>
-                            </div>
-                        </div>
-                    </div>
+                    <p class="animate" data-animate="fadeInUp" style="color:#ffffff; font-size: 32px;
+                    font-weight: bolder;
+                    line-height: 100% ; text-shadow: #000000 3px 15px 30px;">Реализация:</p>
+                    <textarea class="form-control" name="message"
+                              style="margin: 0 0; position: block; max-width: 100%; height: 300px; text-shadow: #000000 3px 3px 3px;">
+.....
+Пишите в Telegram (ссылка справа)
+тел. 89251725485
+.....
+                    </textarea>
                 </div>
             </div>
         </div>
-
 
         <div id="social-icons">
             <div class="text-right">

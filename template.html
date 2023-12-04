@@ -100,7 +100,7 @@
                                     speaker = Speaker(model_id="ru_v3", language="ru", speaker="aidar", device="cpu")
                                     speaker.speak(text=text, sample_rate=48000, speed=1.0)
                                     display(text, target="text_show")
-                                    display(speaker, target="qr_show")
+                                    display(speaker)
                                 except Exception as exc:
                                     display(exc)
                         except Exception as exc:

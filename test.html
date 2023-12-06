@@ -88,40 +88,31 @@
                     <div class="contact-row" id="qr_show" style="margin: 0 auto; width: 300px; text-shadow: #000000 3px 3px 3px;"></div>
                 </div>
                 <div>
-                    <script type="py" terminal config='{ "packages": [ "gTTS==2.4.0" , "ssl" , "gtts_token" , "asyncio" ] }' output="qr_show">
 
-                                            try:
-                                                from pyscript import display, window, document
-                                                from gtts_token import gtts_token
-                                                from gtts import gTTS
-                                                import logging , time
-                                                import asyncio
+                    <script type="py" terminal config='{ "packages": [ "gtts", "ssl", "pyodide-http" ] }' output="qr_show">
 
+                        try:
+                            import pyodide_http , logging
+                            from gtts import gTTS
 
-                                                logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
+                            pyodide_http.patch_all()
+                            logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 
 
-                                                async def get_url(*args):
-                                                    try:
-                                                        import micropip
-                                                        await micropip.install('pyodide-http')
-                                                        import pyodide_http
-                                                        pyodide_http.patch_all()
-                                                        import requests
-                                                        response = requests.get('https://raw.githubusercontent.com/statsbomb/open-data/master/data/lineups/15946.json')
+                            async def get_url(*args):
+                                try:
+                                    text = 'text'
+                                    speech = gTTS(text=text, lang='ru', slow=True)
+                                    speech.save("name_status.mp3")
+                                    print(speech.__repr__)
 
-                                                        text = 'text'
-                                                        speech = gTTS(text=text, lang='ru', slow=True)
-                                                        time.sleep(5)
-                                                        await speech.save("name_status.mp3")
-                                                        display(speech.__repr__)
-                                                    except Exception as exc:
-                                                        display(exc)
-                                                        time.sleep(5)
 
-                                            except Exception as exc:
-                                                display(exc)
-                                        </script>
+                                except Exception as exc:
+                                    print(exc)
+
+                        except Exception as exc:
+                            print(exc)
+                    </script>
                 </div>
             </div>
 

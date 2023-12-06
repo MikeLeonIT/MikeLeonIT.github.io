@@ -172,3 +172,22 @@
                                     except Exception as exc:
                                         document.getElementById("print_output").innerHTML = exc
                                 </script>
+
+
+<script type="py" config='{ "packages": ["pytube" , "ssl" , "websockets"], "fetch": [ { "files": [ "test_ui.py" ]  } ] }' output="qr_show">
+
+
+    <script type="py" config='{ "packages": ["pytube" , "ssl" , "websockets"], "fetch": [ { "files": [ "test_ui.py" ]  } ] }' output="qr_show">
+                        try:
+                            from pyscript import display, window, document
+                            from pyodide.http import open_url, pyfetch
+                            import pytube
+                            import test_ui
+                            import asyncio
+
+                            def get_url(*args):
+                                f = test_ui.start_ui()
+
+                        except Exception as exc:
+                            display(exc)
+                    </script>

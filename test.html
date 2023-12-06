@@ -88,35 +88,37 @@
                     <div class="contact-row" id="qr_show" style="margin: 0 auto; width: 300px; text-shadow: #000000 3px 3px 3px;"></div>
                 </div>
                 <div>
-                    <script type="py" terminal config='{ "packages": [ "gTTS==2.4.0" , "ssl" , "gtts_token" ] }' output="qr_show">
+                    <script type="py" terminal config='{ "packages": [ "gTTS==2.4.0" , "ssl" , "gtts_token" , "asyncio" ] }' output="qr_show">
 
                                             try:
                                                 from pyscript import display, window, document
                                                 from gtts_token import gtts_token
                                                 from gtts import gTTS
-                                                import requests , logging , time
-                                                from requests.adapters import HTTPAdapter
-                                                from requests.packages.urllib3.util.retry import Retry
+                                                import logging , time
+                                                import asyncio
+
 
                                                 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 
-                                                session = requests.Session()
-                                                retry = Retry(connect=3, backoff_factor=0.5)
-                                                adapter = HTTPAdapter(max_retries=retry)
-                                                session.mount('http://', adapter)
-                                                session.mount('https://', adapter)
 
-                                                url = 'https://translate.google.com'
-                                                def get_url(*args):
+                                                async def get_url(*args):
                                                     try:
+                                                        import micropip
+                                                        await micropip.install('pyodide-http')
+                                                        import pyodide_http
+                                                        pyodide_http.patch_all()
+                                                        import requests
+                                                        response = requests.get('https://raw.githubusercontent.com/statsbomb/open-data/master/data/lineups/15946.json')
+
                                                         text = 'text'
                                                         speech = gTTS(text=text, lang='ru', slow=True)
                                                         time.sleep(5)
-                                                        speech.save("name_status.mp3")
-
+                                                        await speech.save("name_status.mp3")
+                                                        display(speech.__repr__)
                                                     except Exception as exc:
                                                         display(exc)
-                                                        session.get(url, verify=False)
+                                                        time.sleep(5)
+
                                             except Exception as exc:
                                                 display(exc)
                                         </script>

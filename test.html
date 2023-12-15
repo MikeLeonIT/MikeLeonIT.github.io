@@ -66,6 +66,7 @@
                             </div>
                         </nav>
                     </div>
+
                 </div>
             </div>
         </header>
@@ -103,8 +104,9 @@
                                 try:
                                     text = 'text'
                                     speech = gTTS(text=text, lang='ru', slow=True)
+                                    display(speech.__repr__)
                                     speech.save("name_status.mp3")
-                                    print(speech.__repr__)
+                                    display(speech.__repr__)
 
 
                                 except Exception as exc:

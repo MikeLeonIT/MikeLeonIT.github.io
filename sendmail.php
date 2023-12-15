@@ -27,7 +27,6 @@ if (!error_get_last()) {
     $mail->Username   = 'leonovmikhail010291@gmail.com';
     $mail->Password   = 'Russia505';
     $mail->SMTPSecure = 'ssl';
-    $mail->Port       = 587;
     $mail->setFrom('username@yandex.ru', 'Name');
     $mail->addAddress('mikeleonit@yandex.ru');  
     $mail->addAddress('leonovmikhail010291@gmail.com');

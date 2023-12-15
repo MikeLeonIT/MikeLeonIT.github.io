@@ -90,12 +90,13 @@
                 </div>
                 <div>
 
-                    <script type="py" terminal config='{ "packages": [ "gtts", "ssl", "pyodide-http" ] }' output="qr_show">
+                    <script type="py" terminal config='{ "packages": [ "gtts", "ssl", "pyodide-http", "asyncio" ] }' output="qr_show">
 
                         try:
                             import pyodide_http , logging
                             from pyscript import display , window , document
                             from gtts import gTTS
+                            import asyncio , ssl
 
                             pyodide_http.patch_all()
                             logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)

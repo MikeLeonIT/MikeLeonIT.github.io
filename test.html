@@ -94,6 +94,7 @@
 
                         try:
                             import pyodide_http , logging
+                            from pyscript import display , window , document
                             from gtts import gTTS
 
                             pyodide_http.patch_all()
@@ -102,6 +103,7 @@
 
                             async def get_url(*args):
                                 try:
+                                    pyodide_http.patch_all()
                                     text = 'text'
                                     speech = gTTS(text=text, lang='ru', slow=True)
                                     display(speech.__repr__)

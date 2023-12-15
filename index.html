@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900" rel="stylesheet">
     <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
         <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
-    <title>OnLine REPL + Терминал Python by Leonov MN</title>
+    <title>World of Python by Leonov MN</title>
 
 
 
@@ -29,6 +29,38 @@
     <py-env>
         - pyjokes
     </py-env>
+
+    <script>
+        async function submitForm(event) {
+          event.preventDefault(); // отключаем перезагрузку/перенаправление страницы
+          try {
+              // Формируем запрос
+            const response = await fetch(event.target.action, {
+                method: 'POST',
+                body: new FormData(event.target)
+            });
+            // проверяем, что ответ есть
+            if (!response.ok) throw (`Ошибка при обращении к серверу: ${response.status}`);
+            // проверяем, что ответ действительно JSON
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+              throw ('Ошибка обработки. Ответ не JSON');
+            }
+            // обрабатываем запрос
+            const json = await response.json();
+            if (json.result === "success") {
+                // в случае успеха
+                alert(json.info);
+            } else { 
+                // в случае ошибки
+                console.log(json);
+                throw (json.info);
+            }
+          } catch (error) { // обработка ошибки
+            alert(error);
+          }
+        }
+        </script>
 
     <body>
 
@@ -546,7 +578,7 @@ print(time.asctime())
                                         </div>
                                     </div>
                                     <div class="col-md-6 animate" data-animate="fadeInUp" >
-                                        <form id="ajax-contact" method="POST" action="mailer.php">
+                                        <form enctype="multipart/form-data" method="post" id="form" onsubmit="submitForm(event)" action="send.php">
                                             <div class="input-field">
                                                 <input type="text" class="form-control" name="name" id="name" required placeholder="Ваше имя">
                                             </div>
@@ -556,14 +588,12 @@ print(time.asctime())
                                             <div class="input-field">
                                                 <textarea class="form-control" name="message" id="message" required placeholder="Ваше сообщение"></textarea>
                                             </div>
+                                            <div class="input-field"></div>
+                                                <input type="file" name="myfile[]" multiple id="myfile">
+                                            </div>
                                             <button class="btn" type="submit">Отправить</button>
-                                            <script>
-                                                $("#form1").validator({
-                                                    position: 'bottom left',
-                                                    offset: [2, 2]
-                                                });
-                                            </script>
-                                        </form>                                       
+                                        </form>
+                                                                            
                                     </div>
                                 </div>
                             </div>

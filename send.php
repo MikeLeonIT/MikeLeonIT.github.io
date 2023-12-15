@@ -37,7 +37,7 @@ if (!error_get_last()) {
     $mail->Username   = 'leonovmikhail010291@gmail.com'; // Логин на почте
     $mail->Password   = 'Russia505'; // Пароль на почте
     $mail->SMTPSecure = 'ssl';
-    $mail->Port       = 465;
+    $mail->Port       = 587;
     $mail->setFrom('username@yandex.ru', 'Name'); // Адрес самой почты и имя отправителя
     
     // Получатель письма

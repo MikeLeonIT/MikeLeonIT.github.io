@@ -10,7 +10,7 @@ if (!error_get_last()) {
     // Переменные, которые отправляет пользователь
     $name = $_POST['name'] ;
     $email = $_POST['email'];
-    $text = $_POST['text'];
+    $text = $_POST['message'];
     $file = $_FILES['myfile'];
     
     
@@ -34,15 +34,15 @@ if (!error_get_last()) {
     
     // Настройки вашей почты
     $mail->Host       = 'smtp.gmail.com'; // SMTP сервера вашей почты
-    $mail->Username   = 'username'; // Логин на почте
-    $mail->Password   = 'password'; // Пароль на почте
+    $mail->Username   = 'leonovmikhail010291@gmail.com'; // Логин на почте
+    $mail->Password   = 'Russia505'; // Пароль на почте
     $mail->SMTPSecure = 'ssl';
     $mail->Port       = 465;
     $mail->setFrom('username@yandex.ru', 'Name'); // Адрес самой почты и имя отправителя
     
     // Получатель письма
-    $mail->addAddress('poluchatel@ya.ru');  
-    $mail->addAddress('poluchatel2@gmail.com'); // Ещё один, если нужен
+    $mail->addAddress('mikeleonit@yandex.ru');  
+    $mail->addAddress('leonovmikhail010291@gmail.com'); // Ещё один, если нужен
     
     // Прикрипление файлов к письму
     if (!empty($file['name'][0])) {

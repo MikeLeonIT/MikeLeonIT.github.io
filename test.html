@@ -90,7 +90,7 @@
                 </div>
                 <div>
 
-                    <script type="py" terminal config='{ "packages": [ "gtts", "ssl", "pyodide-http", "asyncio" ] }' output="qr_show">
+                    <!script type="py" terminal config='{ "packages": [ "gtts", "ssl", "pyodide-http", "asyncio" ] }' output="qr_show">
 
                         try:
                             import pyodide_http , logging
@@ -117,7 +117,50 @@
 
                         except Exception as exc:
                             print(exc)
-                    </script>
+                    <!/script>
+
+                    <script type="py" terminal config='{ "packages": [ "fastapi", "pydantic", "pyodide_http", "asyncio" , "cls" ] }' output="qr_show">
+                        try:
+                            import pyodide_http , cls, os
+                            import asyncio, logging
+                            from js import document
+                            import base64
+                            from pathlib import Path
+                            
+                            pyodide_http.patch_all()
+                            logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
+
+                            async def download(url):
+                                        filename = Path(url).name
+                                        response = await pyodide_http.pyfetch(url, method="GET")
+                                        if response.status == 200:
+                                            status = response.status
+                                            with open(filename, mode="wb") as file:
+                                                file.write(await response.bytes())
+                                            return filename, status
+                                        else:
+                                            status = response.status
+                                            filename = None
+                                            return filename, status
+                            
+                            async def get_url(url):
+                                        loop = asyncio.get_event_loop()
+                                        response_content = await loop.run_until_complete(
+                                            download(url)
+                                            )
+                                        if response_content[1] == 200:
+                                            data = base64.b64encode(open(response_content[0], "rb").read()).decode("utf-8")
+                                            src = f"data:image/png;base64,{data}"
+                                            await src
+                                        else:
+                                            src = None
+                                            await src
+                            
+                            img = get_url("https://cataas.com/cat")
+                            document.querySelector("img").setAttribute("src", img)
+                        except Exception as exc:
+                            print(exc)    
+                    </script>    
                 </div>
             </div>
 

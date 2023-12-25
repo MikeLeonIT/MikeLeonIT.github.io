@@ -191,3 +191,131 @@
                         except Exception as exc:
                             display(exc)
                     </script>
+
+                    <script type="py" terminal config='{ "packages": [ "gtts", "websockets" , "ssl" ] }' output="qr_show">
+
+                        try:
+                            import logging, pyodide
+                            from js import showDirectoryPicker, Object
+                            from pyodide.ffi import to_js
+                            import pyodide_js
+                            import os
+                            
+
+
+                
+                            logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
+
+
+                            async def get_url(*args):
+                                try:
+                                    
+                                    modeObject = to_js({ "mode": "readwrite" }, dict_converter=Object.fromEntries)
+                                    dirHandle = await showDirectoryPicker()
+                                    if await dirHandle.queryPermission(modeObject) != "granted":
+                                        if await dirHandle.requestPermission(modeObject) != "granted":
+                                            raise Exception("Unable to read and write directory")
+                                    nativefs = await pyodide_js.mountNativeFS("/mount_dir", dirHandle)
+                                    
+                                    print(os.listdir('/mount_dir'))
+                                            
+                            
+                                    
+
+                                except Exception as exc:
+                                    print(exc)
+                                  
+
+                        except Exception as exc:
+                            print(exc)
+                    </script>
+                    <script type="py" terminal config='{ "packages": [ "gtts", "websockets" , "ssl", "pyodide_http" ] }' output="qr_show" crossorigin>
+
+                        try:
+                            import logging, pyodide, pyscript, requests
+                            from js import showDirectoryPicker, Object
+                            from pyodide.ffi import to_js
+                            import pyodide_js
+                            import os
+
+                            logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
+
+
+                            async def get_url(*args):
+                                try:
+                                    import pyodide_http
+                                    pyodide_http.patch_all()  # Patch all libraries
+
+                                    from js import XMLHttpRequest
+
+                                    req = XMLHttpRequest.new()
+                                    request = requests.Session()
+                                    print(req)
+                                    print(request)
+                                    print(req.open("GET", "https://myexternalip.com/raw", True))
+                                    print(req.send('None'))
+
+
+
+                                    modeObject = to_js({ "mode": "readwrite" }, dict_converter=Object.fromEntries)
+                                    dirHandle = await showDirectoryPicker()
+                                    if await dirHandle.queryPermission(modeObject) != "granted":
+                                        if await dirHandle.requestPermission(modeObject) != "granted":
+                                            raise Exception("Unable to read and write directory")
+                                    nativefs = await pyodide_js.mountNativeFS("/mount_dir", dirHandle)
+
+                                    print(os.listdir('/mount_dir'))
+
+
+
+
+                                except Exception as exc:
+                                    print(exc)
+
+
+                        except Exception as exc:
+                            print(exc)
+                    </script>
+
+                    <!script type="py" terminal config='{ "packages": [ "fastapi", "pydantic", "pyodide_http", "asyncio" , "cls" ] }' output="qr_show">
+                        try:
+                            import pyodide_http , cls, os
+                            import asyncio, logging
+                            from js import document
+                            import base64
+                            from pathlib import Path
+
+                            pyodide_http.patch_all()
+                            logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
+
+                            async def download(url):
+                                        filename = Path(url).name
+                                        response = await pyodide_http.pyfetch(url, method="GET")
+                                        if response.status == 200:
+                                            status = response.status
+                                            with open(filename, mode="wb") as file:
+                                                file.write(await response.bytes())
+                                            return filename, status
+                                        else:
+                                            status = response.status
+                                            filename = None
+                                            return filename, status
+
+                            async def get_url(url):
+                                        loop = asyncio.get_event_loop()
+                                        response_content = await loop.run_until_complete(
+                                            download(url)
+                                            )
+                                        if response_content[1] == 200:
+                                            data = base64.b64encode(open(response_content[0], "rb").read()).decode("utf-8")
+                                            src = f"data:image/png;base64,{data}"
+                                            await src
+                                        else:
+                                            src = None
+                                            await src
+
+                            img = get_url("https://cataas.com/cat")
+                            document.querySelector("img").setAttribute("src", img)
+                        except Exception as exc:
+                            print(exc)
+                    <!/script>

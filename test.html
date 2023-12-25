@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" crossorigin>
 
   <head>
 
@@ -12,7 +12,7 @@
     <!link rel="stylesheet" href="https://pyscript.net/snapshots/2023.09.1.RC1/core.css">
     <!-- This script tag bootstraps PyScript -->
     <!script type="module" src="https://pyscript.net/snapshots/2023.09.1.RC1/core.js"><!/script>
-    <script type="module" src="https://pyscript.net/releases/2023.11.2/core.js"></script>
+    <script type="module" src="https://pyscript.net/releases/2023.11.2/core.js" crossorigin></script>
 
     <title>Test Page by Leonov MN</title>
 
@@ -79,7 +79,7 @@
             <div class="section animated-row" data-section="slide01" style="max-width: 100%;height: auto;"><br><br>
                 <div class="input-field" style="margin: 5% 10%; position: block; text-shadow: #000000 3px 3px 3px;">
                     <input type="text" class="form-control" name="input_text" id="input_text" required placeholder="Введите значение для генерации: ">
-                    <button class="btn" type="submit" id="submit" py-click="get_url">Сгенерировать речь</button>
+                    <button class="btn" type="submit" id="submit" py-click="get_url" crossorigin>Сгенерировать речь</button>
                 </div>
                 <div class="input-field" style="margin: 0 10%; position: block; text-shadow: #000000 3px 3px 3px;">
                     <p>Введённые данные:</p>
@@ -90,36 +90,55 @@
                 </div>
                 <div>
 
-                    <!script type="py" terminal config='{ "packages": [ "gtts", "ssl", "pyodide-http", "asyncio" ] }' output="qr_show">
+                    <script type="py" terminal config='{ "packages": [ "gtts", "websockets" , "ssl", "pyodide_http" ] }' output="qr_show" crossorigin>
 
                         try:
-                            import pyodide_http , logging
-                            from pyscript import display , window , document
-                            from gtts import gTTS
-                            import asyncio , ssl
-
-                            pyodide_http.patch_all()
+                            import logging, pyodide, pyscript, requests
+                            from js import showDirectoryPicker, Object
+                            from pyodide.ffi import to_js
+                            import pyodide_js
+                            import os
+                                          
                             logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 
 
                             async def get_url(*args):
                                 try:
-                                    pyodide_http.patch_all()
-                                    text = 'text'
-                                    speech = gTTS(text=text, lang='ru', slow=True)
-                                    display(speech.__repr__)
-                                    speech.save("name_status.mp3")
-                                    display(speech.__repr__)
+                                    import pyodide_http
+                                    pyodide_http.patch_all()  # Patch all libraries
+        
+                                    from js import XMLHttpRequest
 
+                                    req = XMLHttpRequest.new()
+                                    request = requests.Session()
+                                    print(req)
+                                    print(request)
+                                    print(req.open("GET", "https://myexternalip.com/raw", True))
+                                    print(req.send('None'))
+
+                                    
+
+                                    modeObject = to_js({ "mode": "readwrite" }, dict_converter=Object.fromEntries)
+                                    dirHandle = await showDirectoryPicker()
+                                    if await dirHandle.queryPermission(modeObject) != "granted":
+                                        if await dirHandle.requestPermission(modeObject) != "granted":
+                                            raise Exception("Unable to read and write directory")
+                                    nativefs = await pyodide_js.mountNativeFS("/mount_dir", dirHandle)
+                                    
+                                    print(os.listdir('/mount_dir'))
+                                            
+                            
+                                    
 
                                 except Exception as exc:
                                     print(exc)
+                                  
 
                         except Exception as exc:
                             print(exc)
-                    <!/script>
+                    </script>
 
-                    <script type="py" terminal config='{ "packages": [ "fastapi", "pydantic", "pyodide_http", "asyncio" , "cls" ] }' output="qr_show">
+                    <!script type="py" terminal config='{ "packages": [ "fastapi", "pydantic", "pyodide_http", "asyncio" , "cls" ] }' output="qr_show">
                         try:
                             import pyodide_http , cls, os
                             import asyncio, logging
@@ -160,7 +179,7 @@
                             document.querySelector("img").setAttribute("src", img)
                         except Exception as exc:
                             print(exc)    
-                    </script>    
+                    <!/script>    
                 </div>
             </div>
 

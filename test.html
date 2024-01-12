@@ -128,15 +128,50 @@
 
                         try:
                             from pyscript import display, window, document
+                            import io, os
                             import js
+                            from js import document, FileReader, Uint8Array
+                            from pyodide.ffi import create_proxy
 
-                            def get_url(*args):
-                                js.speak()
+                            async def get_url(*args):
 
+                                #js.speak()
+
+                                with open("new_file", "wb") as f:
+
+                                    file_event = create_proxy(js.speak())
+
+                                    e = document.getElementById("speakButton")
+                                    e.addEventListener("click", file_event, False)
+
+                                    f.write(bytearray())
+                                    
+                                    mf = io.BytesIO(bytearray(Uint8Array.new()))
+                                    f.write(bytearray(mf))
+
+                                    nlf = f'Читается ли новый виртуальный файл?: {f.readable()}'
+
+                                display("Test 1: " + nlf)
+                                  
+                                name_of_dir = './'                                
+                                
+                                list_of_files = filter( lambda x: os.path.isfile 
+                                                    (os.path.join(name_of_dir, x)), 
+                                                        os.listdir(name_of_dir) )                                 
+                                 
+                                list_of_files = sorted( list_of_files, 
+                                                        key =  lambda x: os.stat 
+                                                    (os.path.join(name_of_dir, x)).st_size)                                 
+                                
+                                for name_of_file in list_of_files: 
+                                    path_of_file = os.path.join(name_of_dir, name_of_file) 
+                                    size_of_file  = os.stat(path_of_file).st_size  
+                                    display(size_of_file, ' -->', name_of_file) 
+                                    
                         except Exception as exc:
                             display(exc)
                     </script>  
-                </div>
+                
             </div>
 
 

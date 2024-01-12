@@ -21,6 +21,7 @@
             h.set('Cross-Origin-Opener-Policy', 'same-origin');
             h.set('Cross-Origin-Embedder-Policy', 'require-corp');
             h.set('Cross-Origin-Resource-Policy', 'cross-origin');
+            h.set('Access-Control-Allow-Origin', 'http://localhost:63342');
             return new Response(body, { status, statusText, headers: h });
         }));
         });

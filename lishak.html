@@ -191,3 +191,30 @@
                         except Exception as exc:
                             display(exc)
                     </script>
+
+
+                                <script type="py" config='{ "packages": [ "asyncio" ] }' output="print_output">
+try:
+    async def start():
+        async micropip.install("pyttsx3-2.90-py3-none-any.whl", keep_going=False, deps=True, credentials=None, pre=False, index_urls=None, *, verbose=False)
+        import pyttsx3
+
+        tts = pyttsx3.init()
+
+        voices = tts.getProperty('voices')
+
+        # Задать голос по умолчанию
+        tts.setProperty('voice', 'ru')
+
+        # Попробовать установить предпочтительный голос
+        for voice in voices:
+            if voice.name == 'Aleksandr':
+                tts.setProperty('voice', voice.id)
+        text = 'Командный голос вырабатываю, товарищ генерал-полковник!'
+        tts.say(text)
+
+        tts.save_to_file(text, 'speech.mp3')
+        tts.runAndWait()
+
+except Exception as exc:
+    print(exc)

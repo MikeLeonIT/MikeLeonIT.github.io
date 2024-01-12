@@ -78,7 +78,7 @@
             <div class="section animated-row" data-section="slide01" style="max-width: 100%;height: auto;"><br><br>
                     <textarea class="form-control" id="text" required placeholder="Введите текст, который нужно озвучить"></textarea>
                     <br>
-                    <button onclick="speak()" id="speakButton">Озвучить</button>
+                    <button id="speakButton" py-click="get_url">Озвучить</button>
                     <br>
                     <label for="voice">Выбор голоса:</label>
                     <select id="voiceOpt"></select>
@@ -123,6 +123,18 @@
                         utterThis.rate = document.querySelector("#rate").value;
                         synth.speak(utterThis);
                       }
+                    </script>
+                    <script type="py" config='{ "packages": [  ] }' output="qr_show">
+
+                        try:
+                            from pyscript import display, window, document
+                            import js
+
+                            def get_url(*args):
+                                js.speak()
+
+                        except Exception as exc:
+                            display(exc)
                     </script>  
                 </div>
             </div>

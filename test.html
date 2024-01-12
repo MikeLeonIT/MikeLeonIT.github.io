@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" crossorigin>
 
   <head>
 
@@ -11,8 +11,8 @@
     <!-- optional PyScript CSS -->
     <link rel="stylesheet" href="https://pyscript.net/snapshots/2023.09.1.RC1/core.css">
     <!-- This script tag bootstraps PyScript -->
-    <script type="module" src="https://pyscript.net/snapshots/2023.09.1.RC1/core.js"></script>
-    <!script type="module" src="https://pyscript.net/releases/2023.11.1/core.js"><!/script>
+    <!script type="module" src="https://pyscript.net/snapshots/2023.09.1.RC1/core.js"><!/script>
+    <script type="module" src="https://pyscript.net/releases/2023.11.2/core.js"></script>
 
     <title>Online generate QR by Leonov MN</title>
 
@@ -77,69 +77,89 @@
         <div id="fullpage" class="fullpage-default">
             <div class="section animated-row" data-section="slide01" style="max-width: 100%;height: auto;"><br><br>
                 <div class="input-field" style="margin: 5% 10%; position: block; text-shadow: #000000 3px 3px 3px;">
-                    <h1>Text to Speech</h1>
-                    <label for="text">Text:</label>
-                    <input id="text" type="text" value=" " required placeholder="Введите значение для генерации: "/>
-                    <br />
-                    <button onclick="speak()">Speak</button>
-                    <br />
-                    <label for="rate">Rate:</label>
-                    <input id="rate" type="range" min="0.5" max="2" value="1" step="0.1" />
-                    <br />
-                    <label for="pitch">Pitch:</label>
-                    <input id="pitch" type="range" min="0" max="2" value="1" step="0.1" />
-                    <br />
-                    <label for="voices">Voice:</label>
-                    <select id="voices"></select>
-                    <button class="btn" type="submit" py-click="get_url">Test</button>
-                    <script>
-                      function populateVoices() {
-                        var select = document.getElementById('voices');
-                        window.speechSynthesis.onvoiceschanged = function() {
-                          var voices = window.speechSynthesis.getVoices();
-                          voices.forEach(function(voice, i) {
-                            var option = document.createElement('option');
-                            option.value = i;
-                            option.innerHTML = voice.name + ' (' + voice.lang + ')';
-                            select.appendChild(option);
-                          });
-                        }
-                      }
-                      function speak() {
-                        var msg = new SpeechSynthesisUtterance();
-                        msg.text = document.getElementById('text').value;
-                        var voices = window.speechSynthesis.getVoices();
-                        msg.voice = voices[document.getElementById('voices').value];
-                        msg.rate = document.getElementById('rate').value;
-                        msg.pitch = document.getElementById('pitch').value;
-                        window.speechSynthesis.speak(msg);
-                      }
-                      populateVoices();
-                    </script>
-                    <script type="py" config='{ "packages": [  ] }' output="qr_show">
+                    <input type="text" class="form-control" name="input_text" id="input_text" required placeholder="Введите значение для генерации: ">
+                    <button class="btn" type="submit" id="submit" py-click="get_url">Сгенерировать речь</button>
+                </div>
+                <div class="input-field" style="margin: 0 10%; position: block; text-shadow: #000000 3px 3px 3px;">
+                    <p>Введённые данные:</p>
+                    <label type="text" class="form-control" name="text_show" id="text_show" style="max-width: 100%; height: auto;"></label>
+                    <p>Ваш файл:</p>
+                    <a id="down">👉...Сохранить файл...👈</a>
+                    <div class="contact-row" id="qr_show" style="margin: 0 auto; width: 300px; text-shadow: #000000 3px 3px 3px;"></div>
+                </div>
+                <div>
+
+                    <!script type="py" terminal config='{ "packages": [ "gtts", "ssl", "pyodide-http", "asyncio" ] }' output="qr_show">
 
                         try:
-                            import io
-                            from js import window, document, Uint8Array
-                            from pyscript import display
+                            import pyodide_http , logging
+                            from pyscript import display , window , document
+                            from gtts import gTTS
+                            import asyncio , ssl
+
+                            pyodide_http.patch_all()
+                            logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
+
 
                             async def get_url(*args):
-                                msg = window.SpeechSynthesisUtterance.new()
-                                msg.text = document.getElementById('text').value
-                                obj = window.speechSynthesis.speak(msg)
-                                display(obj.__repr__)
+                                try:
+                                    pyodide_http.patch_all()
+                                    text = 'text'
+                                    speech = gTTS(text=text, lang='ru', slow=True)
+                                    display(speech.__repr__)
+                                    speech.save("name_status.mp3")
+                                    display(speech.__repr__)
 
-                                data = Uint8Array.new(await window.speechSynthesis.speak(msg))
-                                mf = io.BytesIO(bytearray(data))
-                                display(data.__repr__)
-                                display(mf.__repr__)
 
-                                # Связываем функцию с событием click кнопки
-                                #document["myButton"].bind("click", speak)
+                                except Exception as exc:
+                                    print(exc)
 
                         except Exception as exc:
-                            display(exc)
-                    </script>
+                            print(exc)
+                    <!/script>
+
+                    <script type="py" terminal config='{ "packages": [ "fastapi", "pydantic", "pyodide_http", "asyncio" , "cls" ] }' output="qr_show">
+                        try:
+                            import pyodide_http , cls, os
+                            import asyncio, logging
+                            from js import document
+                            import base64
+                            from pathlib import Path
+                            
+                            pyodide_http.patch_all()
+                            logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
+
+                            async def download(url):
+                                        filename = Path(url).name
+                                        response = await pyodide_http.pyfetch(url, method="GET")
+                                        if response.status == 200:
+                                            status = response.status
+                                            with open(filename, mode="wb") as file:
+                                                file.write(await response.bytes())
+                                            return filename, status
+                                        else:
+                                            status = response.status
+                                            filename = None
+                                            return filename, status
+                            
+                            async def get_url(url):
+                                        loop = asyncio.get_event_loop()
+                                        response_content = await loop.run_until_complete(
+                                            download(url)
+                                            )
+                                        if response_content[1] == 200:
+                                            data = base64.b64encode(open(response_content[0], "rb").read()).decode("utf-8")
+                                            src = f"data:image/png;base64,{data}"
+                                            await src
+                                        else:
+                                            src = None
+                                            await src
+                            
+                            img = get_url("https://cataas.com/cat")
+                            document.querySelector("img").setAttribute("src", img)
+                        except Exception as exc:
+                            print(exc)    
+                    </script>    
                 </div>
             </div>
 

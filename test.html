@@ -76,90 +76,54 @@
 
         <div id="fullpage" class="fullpage-default">
             <div class="section animated-row" data-section="slide01" style="max-width: 100%;height: auto;"><br><br>
-                <div class="input-field" style="margin: 5% 10%; position: block; text-shadow: #000000 3px 3px 3px;">
-                    <input type="text" class="form-control" name="input_text" id="input_text" required placeholder="Введите значение для генерации: ">
-                    <button class="btn" type="submit" id="submit" py-click="get_url">Сгенерировать речь</button>
-                </div>
-                <div class="input-field" style="margin: 0 10%; position: block; text-shadow: #000000 3px 3px 3px;">
-                    <p>Введённые данные:</p>
-                    <label type="text" class="form-control" name="text_show" id="text_show" style="max-width: 100%; height: auto;"></label>
-                    <p>Ваш файл:</p>
-                    <a id="down">👉...Сохранить файл...👈</a>
-                    <div class="contact-row" id="qr_show" style="margin: 0 auto; width: 300px; text-shadow: #000000 3px 3px 3px;"></div>
-                </div>
-                <div>
-
-                    <!script type="py" terminal config='{ "packages": [ "gtts", "ssl", "pyodide-http", "asyncio" ] }' output="qr_show">
-
-                        try:
-                            import pyodide_http , logging
-                            from pyscript import display , window , document
-                            from gtts import gTTS
-                            import asyncio , ssl
-
-                            pyodide_http.patch_all()
-                            logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
-
-
-                            async def get_url(*args):
-                                try:
-                                    pyodide_http.patch_all()
-                                    text = 'text'
-                                    speech = gTTS(text=text, lang='ru', slow=True)
-                                    display(speech.__repr__)
-                                    speech.save("name_status.mp3")
-                                    display(speech.__repr__)
-
-
-                                except Exception as exc:
-                                    print(exc)
-
-                        except Exception as exc:
-                            print(exc)
-                    <!/script>
-
-                    <script type="py" terminal config='{ "packages": [ "fastapi", "pydantic", "pyodide_http", "asyncio" , "cls" ] }' output="qr_show">
-                        try:
-                            import pyodide_http , cls, os
-                            import asyncio, logging
-                            from js import document
-                            import base64
-                            from pathlib import Path
-                            
-                            pyodide_http.patch_all()
-                            logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
-
-                            async def download(url):
-                                        filename = Path(url).name
-                                        response = await pyodide_http.pyfetch(url, method="GET")
-                                        if response.status == 200:
-                                            status = response.status
-                                            with open(filename, mode="wb") as file:
-                                                file.write(await response.bytes())
-                                            return filename, status
-                                        else:
-                                            status = response.status
-                                            filename = None
-                                            return filename, status
-                            
-                            async def get_url(url):
-                                        loop = asyncio.get_event_loop()
-                                        response_content = await loop.run_until_complete(
-                                            download(url)
-                                            )
-                                        if response_content[1] == 200:
-                                            data = base64.b64encode(open(response_content[0], "rb").read()).decode("utf-8")
-                                            src = f"data:image/png;base64,{data}"
-                                            await src
-                                        else:
-                                            src = None
-                                            await src
-                            
-                            img = get_url("https://cataas.com/cat")
-                            document.querySelector("img").setAttribute("src", img)
-                        except Exception as exc:
-                            print(exc)    
-                    </script>    
+                    <textarea class="form-control" id="text" required placeholder="Введите текст, который нужно озвучить"></textarea>
+                    <br>
+                    <button onclick="speak()" id="speakButton">Озвучить</button>
+                    <br>
+                    <label for="voice">Выбор голоса:</label>
+                    <select id="voiceOpt"></select>
+                    <br>
+                    <label for="rate">Скорость:</label>
+                    <input id="rate" type="range" min="0" max="2" value="1" steps="0.1">
+                    <br>
+                    <label for="pitch">Подача:</label>
+                    <input id="pitch" type="range" min="0" max="2" value="1" steps="0.1">
+                    <br>
+                    <script>
+                      var synth = window.speechSynthesis;
+                      var voices = [];
+                      
+                      function populateVoiceList() {
+                        voices = synth.getVoices().sort(function (a, b) {
+                          const aname = a.name.toUpperCase(), bname = b.name.toUpperCase();
+                          if (aname < bname) return -1;
+                          else if (aname == bname) return 0;
+                          else return +1;
+                        });
+                        var voiceSelect = document.querySelector('#voiceOpt');
+                        voices.forEach(function(voice, i) {
+                          var option = document.createElement('option');
+                          option.textContent = voice.name + ' (' + voice.lang + ')';
+                          option.setAttribute('data-lang', voice.lang);
+                          option.setAttribute('data-name', voice.name);
+                          voiceSelect.appendChild(option);
+                        });
+                      }
+                      
+                      populateVoiceList();
+                      if (speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = populateVoiceList;
+                    
+                      function speak(){
+                        var utterThis = new SpeechSynthesisUtterance(document.querySelector("#text").value);
+                        var selectedOption = document.querySelector('#voiceOpt').selectedOptions[0].getAttribute('data-name');
+                        for(var i = 0; i < voices.length ; i++){
+                          if(voices[i].name === selectedOption) utterThis.voice = voices[i];
+                        }
+                        utterThis.pitch = document.querySelector("#pitch").value;
+                        utterThis.rate = document.querySelector("#rate").value;
+                        synth.speak(utterThis);
+                      }
+                    </script>  
                 </div>
             </div>
 

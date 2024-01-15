@@ -124,7 +124,7 @@
                         synth.speak(utterThis);
                       }
                     </script>
-                    <script type="py" config='{ "packages": [  ] }' output="qr_show">
+                    <script type="py" config='{ "packages": [ "sounddevice" ] }' output="qr_show">
 
                         try:
                             from pyscript import display, window, document
@@ -135,23 +135,23 @@
 
                             async def get_url(*args):
 
-                                #js.speak()
+                                from ctypes.util import find_library
+                                find_library('portaudio')
 
-                                with open("new_file", "wb") as f:
+                                import sounddevice as sd
+                                
+                                sd.default.samplerate = 4400
+                                sd.default.channels = 2
+                                
+                                myrecording = sd.rec(int(duration * fs))
+                                
+                                js.speak()
 
-                                    file_event = create_proxy(js.speak())
+                                # change the data type: pass a new argument in .rec() of dtype
+                                # myrecording = sd.rec(int(duration * fs), dtype='float64')
+                                
+                                sd.wait()
 
-                                    e = document.getElementById("speakButton")
-                                    e.addEventListener("click", file_event, False)
-
-                                    f.write(bytearray())
-                                    
-                                    mf = io.BytesIO(bytearray(Uint8Array.new()))
-                                    f.write(bytearray(mf))
-
-                                    nlf = f'Читается ли новый виртуальный файл?: {f.readable()}'
-
-                                display("Test 1: " + nlf)
                                   
                                 name_of_dir = './'                                
                                 

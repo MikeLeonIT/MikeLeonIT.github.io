@@ -91,7 +91,7 @@
                             <br />
                             <p>Текст из файла:  </p>
                             <form id="text" class="form-control"
-                                          style="text-align: left; height: 500px; text-shadow: #000000 3px 3px 3px; position: block; overflow: auto" ></form>
+                                          style="text-align: left; height: 500px; text-shadow: #000000 3px 3px 3px; position: block; overflow: auto;" ></form>
                             <textarea id="text1" class="form-control" name="text"
                             style="text-align: left; height: 500px; text-shadow: #000000 3px 3px 3px; position: block; overflow: auto"></textarea>             
                                 <script>
@@ -168,7 +168,7 @@ try:
                 document.getElementById("text1").innerText = PDFread
                 document.getElementById("text").innerText = PDFread
                 
-                button = '<br><button id="speakButton" py-click="get_url">Озвучить</button><br><label for="voice">Выбор голоса:  </label><select id="voiceOpt"></select><br><label for="rate">Скорость:  </label><input id="rate" type="range" min="0" max="2" value="1" steps="0.1"><br><label for="pitch">Подача:  </label><input id="pitch" type="range" min="0" max="2" value="1" steps="0.1"><br>'
+                button = '<button id="speakButton" py-click="get_url">Озвучить</button><br><label for="voice">Выбор голоса:  </label><select id="voiceOpt"></select><br><label for="rate">Скорость:  </label><input id="rate" type="range" min="0" max="2" value="1" steps="0.1"><br><label for="pitch">Подача:  </label><input id="pitch" type="range" min="0" max="2" value="1" steps="0.1"><br>'
                 
                 document.getElementById("btn").innerHTML = button
 
@@ -209,17 +209,14 @@ except Exception as exc:
         
                                 try:
                                     from pyscript import display, window, document
-                                    import io, os, asyncio
-                                    import js
-                                    from js import document, FileReader, Uint8Array, console
+                                    import js, os, asyncio
+                                    from js import document, console
                                     from pyodide.ffi import create_proxy
                                     
 
                                     async def get_url(*args):
-                                            
-                                        #console.log(js.populateVoiceList())
+
                                         console.log(js.speak())
-        
         
                                         
                                         name_of_dir = './'                                
@@ -234,7 +231,8 @@ except Exception as exc:
                                         
                                         for name_of_file in list_of_files: 
                                             path_of_file = os.path.join(name_of_dir, name_of_file) 
-                                            size_of_file  = os.stat(path_of_file).st_size  
+                                            size_of_file  = os.stat(path_of_file).st_size
+
                                             display(size_of_file, ' -->', name_of_file) 
                                             
                                 except Exception as exc:

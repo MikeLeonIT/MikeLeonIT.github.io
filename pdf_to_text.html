@@ -109,7 +109,7 @@
                                     var voiceSelect = document.querySelector('#voiceOpt');
                                     voices.forEach(function(voice, i) {
                                     var option = document.createElement('option');
-                                    option.textContent = voice.name + ' (' + voice.lang + ')';
+                                    option.textContent = voice.name + '  (' + voice.lang + ')';
                                     option.setAttribute('data-lang', voice.lang);
                                     option.setAttribute('data-name', voice.name);
                                     voiceSelect.appendChild(option);
@@ -133,15 +133,10 @@
                                 </script>
                                 <script type="py" config='{ "packages": [ "pdfminer.six" ] }' output="print_output">
 try:
-    import asyncio
-    import zipfile
+    import asyncio, shutil, io
     from js import document, FileReader, Uint8Array, console, populateVoiceList
     from pyodide.ffi import create_proxy
-    import shutil
-    import io
-    from pdfminer.high_level import extract_text
-
-    
+    from pdfminer.high_level import extract_text    
 
     async def process_file(event):
         fileList = event.target.files.to_py()
@@ -168,7 +163,7 @@ try:
                 document.getElementById("text1").innerText = PDFread
                 document.getElementById("text").innerText = PDFread
                 
-                button = '<button id="speakButton" py-click="get_url">Озвучить</button><br><label for="voice">Выбор голоса:  </label><select id="voiceOpt"></select><br><label for="rate">Скорость:  </label><input id="rate" type="range" min="0" max="2" value="1" steps="0.1"><br><label for="pitch">Подача:  </label><input id="pitch" type="range" min="0" max="2" value="1" steps="0.1"><br>'
+                button = '<button id="speakButton" py-click="get_url">Озвучить</button><br><label for="voice">Выбор голоса:  </label><select id="voiceOpt"></select><br><label for="rate">Скорость:  </label><input id="rate" type="range" min="0" max="2" value="1" steps="0.5"><br><label for="pitch">Подача:  </label><input id="pitch" type="range" min="0" max="2" value="1" steps="0.5"><br>'
                 
                 document.getElementById("btn").innerHTML = button
 
@@ -208,17 +203,20 @@ except Exception as exc:
                                 <script type="py" config='{ "packages": [ ] }' output="qr_show">
         
                                 try:
-                                    from pyscript import display, window, document
+                                    from pyscript import display, window
                                     import js, os, asyncio
                                     from js import document, console
                                     from pyodide.ffi import create_proxy
                                     
 
-                                    async def get_url(*args):
+                                    async def get_url(*args):      
 
                                         console.log(js.speak())
-        
+
+                                        button = '<button id="stop" py-click="stop">Остановить</button><br>'
+                                        document.getElementById("btn").innerHTML = button        
                                         
+
                                         name_of_dir = './'                                
                                         
                                         list_of_files = filter( lambda x: os.path.isfile 
@@ -231,10 +229,13 @@ except Exception as exc:
                                         
                                         for name_of_file in list_of_files: 
                                             path_of_file = os.path.join(name_of_dir, name_of_file) 
-                                            size_of_file  = os.stat(path_of_file).st_size
-
+                                            size_of_file  = os.stat(path_of_file).st_size  
                                             display(size_of_file, ' -->', name_of_file) 
-                                            
+
+                                    async def stop(*args):
+
+                                        document.getElementById("btn").innerText += 'HUy VAM'        
+
                                 except Exception as exc:
                                     display(exc)
                                 </script>

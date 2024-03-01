@@ -234,7 +234,7 @@ except Exception as exc:
 
                                     async def stop(*args):
 
-                                        document.getElementById("btn").innerText += 'HUy VAM'        
+                                        document.getElementById('fullpage').contentWindow.location.reload(true);        
 
                                 except Exception as exc:
                                     display(exc)

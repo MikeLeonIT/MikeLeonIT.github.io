@@ -135,15 +135,6 @@
 
                             async def get_url(*args):
 
-                                from ctypes.util import find_library
-                                find_library('portaudio')
-
-                                import sounddevice as sd
-                                
-                                sd.default.samplerate = 4400
-                                sd.default.channels = 2
-                                
-                                myrecording = sd.rec(int(duration * fs))
                                 
                                 js.speak()
 

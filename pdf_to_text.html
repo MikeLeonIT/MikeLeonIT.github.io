@@ -91,9 +91,7 @@
                             <br />
                             <p>Текст из файла:  </p>
                             <form id="text" class="form-control"
-                                          style="text-align: left; height: 500px; text-shadow: #000000 3px 3px 3px; position: block; overflow: auto;" ></form>
-                            <textarea id="text1" class="form-control" name="text"
-                            style="text-align: left; height: 500px; text-shadow: #000000 3px 3px 3px; position: block; overflow: auto"></textarea>             
+                                          style="text-align: left; height: 500px; text-shadow: #000000 3px 3px 3px; position: block; overflow: auto;" ></form>            
                                 <script>
                                 var synth = window.speechSynthesis;
                                 var voices = [];
@@ -121,15 +119,24 @@
                                 
                                 async function speak(){
                                     
-                                    var utterThis = new SpeechSynthesisUtterance(document.querySelector("#text1").value);
+                                    var utterThis = new SpeechSynthesisUtterance(document.getElementById("text").innerText);
                                     var selectedOption = document.querySelector('#voiceOpt').selectedOptions[0].getAttribute('data-name');
                                     for(var i = 0; i < voices.length ; i++){
                                     if(voices[i].name === selectedOption) utterThis.voice = voices[i];
                                     }
                                     utterThis.pitch = document.querySelector("#pitch").value;
                                     utterThis.rate = document.querySelector("#rate").value;
+                                    
+
+                                    var isBtnDisabled = $('#stop').prop('disabled');
+                                    if(isBtnDisabled){
+                                        return false;
+                                    }
+
                                     await synth.speak(utterThis);
                                 }
+
+
                                 </script>
                                 <script type="py" config='{ "packages": [ "pdfminer.six" ] }' output="print_output">
 try:
@@ -160,7 +167,7 @@ try:
                 PDFread = "".join([x for x in extract_text(zf)])
                 document.getElementById("print_output").innerText = zf.__repr__()
                 document.getElementById("print_output").innerText += "\n Test 3: Пока не понятно?: " + f.name + " True"
-                document.getElementById("text1").innerText = PDFread
+                
                 document.getElementById("text").innerText = PDFread
                 
                 button = '<button id="speakButton" py-click="get_url">Озвучить</button><br><label for="voice">Выбор голоса:  </label><select id="voiceOpt"></select><br><label for="rate">Скорость:  </label><input id="rate" type="range" min="0" max="2" value="1" steps="0.5"><br><label for="pitch">Подача:  </label><input id="pitch" type="range" min="0" max="2" value="1" steps="0.5"><br>'
@@ -205,12 +212,12 @@ except Exception as exc:
                                 try:
                                     from pyscript import display, window
                                     import js, os, asyncio
-                                    from js import document, console
+                                    from js import document, console, location
                                     from pyodide.ffi import create_proxy
                                     
 
-                                    async def get_url(*args):      
-
+                                    async def get_url(*args):                                             
+                                        
                                         console.log(js.speak())
 
                                         button = '<button id="stop" py-click="stop">Остановить</button><br>'
@@ -233,8 +240,8 @@ except Exception as exc:
                                             display(size_of_file, ' -->', name_of_file) 
 
                                     async def stop(*args):
-
-                                        document.contentWindow.location.reload(true);        
+                                        button = '<button id="stop" class="disabled">Остановлено</button><br>'
+                                        document.getElementById("btn").innerHTML = button
 
                                 except Exception as exc:
                                     display(exc)

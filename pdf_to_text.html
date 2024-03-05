@@ -127,12 +127,6 @@
                                     utterThis.pitch = document.querySelector("#pitch").value;
                                     utterThis.rate = document.querySelector("#rate").value;
                                     
-
-                                    var isBtnDisabled = $('#stop').prop('disabled');
-                                    if(isBtnDisabled){
-                                        return false;
-                                    }
-
                                     await synth.speak(utterThis);
                                 }
 

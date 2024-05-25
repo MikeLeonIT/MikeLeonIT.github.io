@@ -9,9 +9,9 @@
     <meta name="author" content="OnLine Генератор QR-кодов Python">
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900" rel="stylesheet">
     <!-- optional PyScript CSS -->
-    <link rel="stylesheet" href="https://pyscript.net/snapshots/2023.09.1.RC1/core.css">
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.5.2/core.css">
     <!-- This script tag bootstraps PyScript -->
-    <script type="module" src="https://pyscript.net/snapshots/2023.09.1.RC1/core.js"></script>
+    <script type="module" src="https://pyscript.net/releases/2024.5.2/core.js"></script>
     <!script type="module" src="https://pyscript.net/releases/2023.11.1/core.js"><!/script>
 
     <title>Online generate QR by Leonov MN</title>
@@ -73,33 +73,57 @@
         <video autoplay muted loop id="myVideo">
             <source src="images/video_back.mp4" type="video/mp4">
         </video>
-
+        
         <div id="fullpage" class="fullpage-default">
+            
             <div class="section animated-row" data-section="slide01" style="max-width: 100%;height: auto;"><br><br>
-                <audio id="audio_controls" controls="controls" autoplay="autoplay" muted></audio>
+                
                 <div class="input-field" style="margin: 5% 10%; position: block; text-shadow: #000000 3px 3px 3px;">
                     <input type="text" class="form-control" name="input_text" id="input_text" required placeholder="Введите значение для генерации: ">
-                    <button id="call" class="btn" type="submit" py-click="get_url" >Сгенерировать QR-код</button>
+                    <button id="call" class="btn" type="submit" py-click="get_url" >Искать видео</button>
                 </div>
+
                 <div class="input-field" style="margin: 0 10%; position: block; text-shadow: #000000 3px 3px 3px;">
                     <p>Введённые данные:</p>
                     <label type="text" class="form-control" name="text_show" id="text_show" style="max-width: 100%; height: auto;"></label>
-                    <p>Ваш QR-код:</p>
-                    <a id="down">👉...Сохранить QR-код...👈</a>
-                    <div class="contact-row" id="qr_show" style="margin: 0 auto; width: 300px; text-shadow: #000000 3px 3px 3px;"></div>
+                    <p>Ваше видео:</p>
+                    <div>
+                        <video width="320" height="240" controls id="resultVideo">
+                            <source src="images/video_back.mp4" type="video/mp4">
+                            <!source src="movie.mp4" type="video/mp4">
+                            <!source src="movie.ogg" type="video/ogg">
+                          Your browser does not support the video tag.
+                        </video>
+                    </div>
                 </div>
+
                 <div>
-                    <script type="py" config='{ "packages": [ "speakerpy" , "asyncio" ] }' output="audio_controls">
+                    <script type="py" config='{ "packages": [ "ssl" ] }' output="audio_controls">
                         try:
-                            from speakerpy.lib_speak import Speaker
-                            from speakerpy.lib_sl_text import SeleroText
-                            async def get_url():
+                            # from pyyoutube import Client
+                            from pyscript import display, window, document
+                            import ssl, time
+
+                            async def get_url(*args):
                                 try:
-                                    text = SeleroText("Пример текста для синтеза речи")
-                                    speaker = Speaker(model_id="ru_v3", language="ru", speaker="aidar", device="cpu")
-                                    speaker.speak(text=text, sample_rate=48000, speed=1.0)
-                                    display(text, target="text_show")
-                                    display(speaker)
+                                    import urllib
+                                    import urllib.request
+                                    import re
+                                    import random
+                                    from pyscript import display, window, document
+                                    
+                                    text = document.getElementById("input_text").value
+                                    display(text)
+
+                                    content = urllib.request.urlopen("https://www.youtube.com/results?" + text)
+                                    search_results = await re.findall('href=\"\/watch\?v=(.*?)\"', content.read().decode())
+                                    time.sleep(30)
+
+                                    if len(search_results) > 0:
+                                        search_results = search_results[0:9:1]
+                                        choice_f = random.choice(search_results)
+                                        yt_link = "https://www.youtube.com/watch?v="+choice_f
+                                        display(yt_link)
                                 except Exception as exc:
                                     display(exc)
                         except Exception as exc:

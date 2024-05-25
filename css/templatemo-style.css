@@ -130,7 +130,7 @@ figure {
   opacity: 1 !important;
 }
 
-video {
+video#myVideo{
   position: fixed;
   width: 100% !important;
   height: auto !important;
@@ -139,8 +139,11 @@ video {
   min-width: 100%; 
   min-height: 100%;
   object-fit: cover;
+  
 }
+
 #video:after {
+  
   content: '';
   opacity: 0.75;
   
@@ -148,7 +151,7 @@ video {
   background: -moz-linear-gradient(top, #000000 0%, #39ced6 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(top, #000000 0%,#39ced6 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom, #000000 0%,#39ced6 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#39ced6',GradientType=0 ); /* IE6-9 */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6d6a77', endColorstr='#39ced6',GradientType=0 ); /* IE6-9 */
   
   position:fixed;
   left:0;

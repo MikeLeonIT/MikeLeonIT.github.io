@@ -143,13 +143,13 @@
                                 </script>
                                 <script type="py" config='{ "packages": [ "pdfminer.six" ] }' output="print_output">
 try:
-    import asyncio, shutil, io, pyodide_js
+    import asyncio, shutil, io, micropip
     from js import document, FileReader, Uint8Array, console, populateVoiceList
     from pyodide.ffi import create_proxy
   
 
     async def process_file(event):
-        # await pyodide_js.loadPackage("cryptography")
+        await micropip.install("pdfminer.six", keep_going=True)
 
         from pdfminer.high_level import extract_text
 

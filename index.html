@@ -25,6 +25,7 @@
 
     </head>
     <meta name="google-site-verification" content="0mGKW8eGnqsaD-cuHBCMIkwtCdkctotvXssEOfkVbR4" />
+    <link rel="icon" href="images/logo_python.png" type="image/x-icon">
 
     <py-env>
         - pyjokes
@@ -54,9 +55,9 @@
                         Leonov_M.N.<br> <br>
                     </a>
 
-                    <audio controls="controls"><!autoplay="autoplay" muted>
-                        <source src="voice.mp3" type="audio/mpeg">
-                    </audio>
+                    <!audio controls="controls"><!autoplay="autoplay" muted>
+                        <!source src="voice.mp3" type="audio/mpeg">
+                    <!/audio>
 
                     <div class="navigation-row">
                         <nav id="navigation">
@@ -65,25 +66,25 @@
                                 <ul class="navigation-menu nav navbar-nav navbars" id="nav" style="text-shadow:
                                 3px 3px 3px black;">
                                     <li data-menuanchor="slide01" class="active"><a href="#slide01">Главная</a></li>
-                                    <li data-menuanchor="slide02"><a href="#slide02">OnLine REPL + Терминал Python</a></li>
+                                    <li data-menuanchor="slide02"><a href="#slide02">OnLine REPL Python</a></li>
                                     <li data-menuanchor="slide03"><a href="#slide03">Мои работы / WebAapps Python</a></li>
-                                    <li data-menuanchor="slide04"><a href="#slide04">Обо мне</a></li>
-                                    <li data-menuanchor="slide05"><a href="#slide05">Опыт работы</a></li>
-                                    <li data-menuanchor="slide06"><a href="#slide06">Мои навыки</a></li>
-                                    <li data-menuanchor="slide07"><a href="#slide07">Тестовые работы (от работодателей)</a></li>
-                                    <li data-menuanchor="slide08"><a href="#slide08">Мои контакты</a></li>
+                                    <li data-menuanchor="slide04"><a href="#slide04">Опыт работы</a></li>
+                                    <li data-menuanchor="slide05"><a href="#slide05">Мои навыки</a></li>
+                                    <li data-menuanchor="slide06"><a href="#slide06">Тестовые работы</a></li>
+                                    <li data-menuanchor="slide07"><a href="#slide07">Мои контакты</a></li>
                                 </ul>
                             </div>
                         </nav>
                     </div>
 
-                    <b><p>  <u type="text" class="form-control" style="text-shadow: 1px 1px 1px black;"><label id='today'></label></u></p></b>
+                    <br><p>  <u type="text" class="form-control" style="text-shadow: 1px 1px 1px black;"><label id='today'></label></u></p></b>
 
                     <py-script>
                         import datetime as dt
                         from datetime import datetime
 
-                        pyscript.write('today', 'Today is: ' + dt.date.today().strftime('%A %B %d, %Y'))
+                        # pyscript.write('today', 'Today is: ' + dt.date.today().strftime('%A %B %d, %Y'))
+                        pyscript.write('today', 'Today is: ' + time.asctime())
                         now = datetime.now()
                         # current_time = now.strftime("%H:%M:%S")
                         # pyscript.write('time', current_time)
@@ -104,7 +105,7 @@
                     font-weight: bolder;
                     line-height: 100% ; text-shadow: #000000 3px 15px 30px;">
                         <span class="welcome-first animate" data-animate="fadeInUp">Hello, welcome to</span>
-                        <h1 class="welcome-title animate" data-animate="fadeInUp">world of python by Mikhail Leonov</h1>
+                        <h1 class="welcome-title animate" data-animate="fadeInUp">world of python by <br> Mikhail Leonov</h1>
                         <p class="animate" data-animate="fadeInUp">Эта страница создана для более информативного знакомства </p>
                     </div>
                 </div>
@@ -145,7 +146,7 @@ print(time.asctime())
                                                 <i class="fa fa-qrcode fa-refresh"></i>  QR-кодов  <i class="fa fa-qrcode fa-refresh"></i></h3>
                                             <li style="list-style-type: none;">
                                                 <a href="qrcode.html">
-                                                    <span style="color: black; text-shadow: 3px 3px 3px white;"><strong>👉...Ссылка...👈</strong></span>
+                                                    <span style="color: black; text-shadow: 3px 3px 3px white;"><strong>👉...Перейти...👈</strong></span>
                                                 </a>
                                             </li>
                                         </div>
@@ -158,7 +159,7 @@ print(time.asctime())
                                                <h3 style="text-shadow: 1px 1px 1px black;">Онлайн озвучка и извлечение текста из <br><i class="fa fa-file fa-refresh" aria-hidden="true"></i>.     из файлов .PDF     .<i class="fa fa-file-text-o fa-refresh" aria-hidden="true"></i></h3>
                                             <li style="list-style-type: none;">
                                                 <a href="pdf_to_text.html">
-                                                    <span style="color: black; text-shadow: 3px 3px 3px white;"><strong>👉...Ссылка...👈</strong></span>
+                                                    <span style="color: black; text-shadow: 3px 3px 3px white;"><strong>👉...Перейти...👈</strong></span>
                                                 </a>
                                             </li>
                                         </div>
@@ -170,19 +171,31 @@ print(time.asctime())
                                             <h3 style="text-shadow: 1px 1px 1px black;">Онлайн синтез речи</h3>
                                             <li style="list-style-type: none;">
                                                 <a href="test.html">
-                                                    <span style="color: black; text-shadow: 3px 3px 3px white;"><strong>👉...Ссылка...👈</strong></span>
+                                                    <span style="color: black; text-shadow: 3px 3px 3px white;"><strong>👉...Перейти...👈</strong></span>
                                                 </a>
                                             </li>
                                         </div>
                                     </div>
-                                    <div class="item animate" data-animate="fadeInUp">
+                                    <div class="item animate" data-animate="fadeInUp">                                        
                                         <div class="service-box">
                                             <span class="service-icon"><img src="images/qr_code.jpg"
                                                 width="auto" height="auto" alt=""></span>
                                             <h3 style="text-shadow: 1px 1px 1px black;">Онлайн генератор QR-кодов</h3>
                                             <li style="list-style-type: none;">
                                                 <a href="qrcode.html">
-                                                    <span style="color: black; text-shadow: 3px 3px 3px white;"><strong>👉...Ссылка...👈</strong></span>
+                                                    <span style="color: black; text-shadow: 3px 3px 3px white;"><strong>👉...Перейти...👈</strong></span>
+                                                </a>
+                                            </li>
+                                        </div>
+                                    </div>
+                                    <div class="item animate" data-animate="fadeInUp">                                        
+                                        <div class="service-box">
+                                            <span class="service-icon"><img src="images/logo_stav1.png"
+                                                width="auto" height="auto" alt=""></span>
+                                            <h3 style="text-shadow: 1px 1px 1px black;">Сайт перевозок</h3>
+                                            <li style="list-style-type: none;">
+                                                <a href="https://mikeleonit.github.io/stavgruz/">
+                                                    <span style="color: black; text-shadow: 3px 3px 3px white;"><strong>👉...Перейти...👈</strong></span>
                                                 </a>
                                             </li>
                                         </div>
@@ -194,59 +207,9 @@ print(time.asctime())
                 </div>
             </div>
 
-            <div class="section animated-row" data-section="slide04">
-                <div class="section-inner">
-                    <div class="about-section">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8 wide-col-laptop">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="about-contentbox">
-                                            <div class="animate" data-animate="fadeInUp">
-                                                <span>Обо мне</span>
-                                                <h2>Кто я?</h2>
-                                                <p>Начинающий, но <strong>Очень перспективный</strong> разработчик <strong>Python</strong> ...</p>
-                                            </div>
-                                            <div class="facts-list owl-carousel">
-                                                <div class="item animate" data-animate="fadeInUp">
-                                                    <div class="counter-box">
-                                                        <i class="fa fa-trophy counter-icon" aria-hidden="true"></i><span class="count-number">32</span> Awards Won
-                                                    </div>
-                                                </div>
-                                                <div class="item animate" data-animate="fadeInUp">
-                                                    <div class="counter-box">
-                                                        <i class="fa fa-graduation-cap counter-icon" aria-hidden="true"></i><span class="count-number">4</span> Degrees
-                                                    </div>
-                                                </div>
-                                                <div class="item animate" data-animate="fadeInUp">
-                                                    <div class="counter-box">
-                                                        <i class="fa fa-desktop counter-icon" aria-hidden="true"></i><span class="count-number">12</span> Working Years
-                                                    </div>
-                                                </div>
-                                                <div class="item animate" data-nimate="fadeInUp">
-                                                    <div class="counter-box">
-                                                        <i class="fa fa-support counter-icon" aria-hidden="true"></i><span class="count-number">6</span> Team Members
-                                                    </div>
-                                                </div>
-                                                <div class="item animate" data-animate="fadeInUp">
-                                                    <div class="counter-box">
-                                                        <i class="fa fa-certificate counter-icon" aria-hidden="true"></i><span class="count-number">1</span> Сертификаты
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <figure class="about-img animate" data-animate="fadeInUp"><img src="images/new_python.png" class="rounded" alt=""></figure>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
 
-            <div class="section animated-row" data-section="slide05">
+            <div class="section animated-row" data-section="slide04">
                 <div class="section-inner">
                     <div class="row justify-content-center">
                         <div class="col-md-8 wide-col-laptop">
@@ -277,48 +240,6 @@ print(time.asctime())
                                             <p>2021-...</p>
                                         </div>
                                     </div>
-                                    <div class="item animate" data-animate="fadeInUp">
-                                        <div class="service-box">
-                                            <span class="service-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>
-                                            <h3>Fully Responsive</h3>
-                                            <p>Nullam auctor, justo vitae accumsan ultrices, arcu ex molestie massa, eu maximus enim tortor vitae quam. </p>
-                                        </div>
-                                    </div>
-                                    <div class="item animate" data-animate="fadeInUp">
-                                        <div class="service-box">
-                                            <span class="service-icon"><i class="fa fa-mobile" aria-hidden="true"></i></span>
-                                            <h3>Mobile Ready</h3>
-                                            <p>Nullam auctor, justo vitae accumsan ultrices, arcu ex molestie massa, eu maximus enim tortor vitae quam. </p>
-                                        </div>
-                                    </div>
-                                    <div class="item animate" data-animate="fadeInUp">
-                                        <div class="service-box">
-                                            <span class="service-icon"><i class="fa fa-comments" aria-hidden="true"></i></span>
-                                            <h3>Fast Support</h3>
-                                            <p>Nullam auctor, justo vitae accumsan ultrices, arcu ex molestie massa, eu maximus enim tortor vitae quam. </p>
-                                        </div>
-                                    </div>
-                                    <div class="item animate" data-animate="fadeInUp">
-                                        <div class="service-box">
-                                            <span class="service-icon"><i class="fa fa-database" aria-hidden="true"></i></span>
-                                            <h3>24-hour Up Time</h3>
-                                            <p>Nullam auctor, justo vitae accumsan ultrices, arcu ex molestie massa, eu maximus enim tortor vitae quam. </p>
-                                        </div>
-                                    </div>
-                                    <div class="item animate" data-animate="fadeInUp">
-                                        <div class="service-box">
-                                            <span class="service-icon"><i class="fa fa-bell" aria-hidden="true"></i></span>
-                                            <h3>Instant Upgrades</h3>
-                                            <p>Nullam auctor, justo vitae accumsan ultrices, arcu ex molestie massa, eu maximus enim tortor vitae quam. </p>
-                                        </div>
-                                    </div>
-                                    <div class="item animate" data-animate="fadeInUp">
-                                        <div class="service-box">
-                                            <span class="service-icon"><i class="fa fa-camera" aria-hidden="true"></i></span>
-                                            <h3>Always Monitoring</h3>
-                                            <p>Nullam auctor, justo vitae accumsan ultrices, arcu ex molestie massa, eu maximus enim tortor vitae quam. </p>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -326,7 +247,7 @@ print(time.asctime())
                 </div>
             </div>
 
-            <div class="section animated-row" data-section="slide06">
+            <div class="section animated-row" data-section="slide05">
                 <div class="section-inner">
                     <div class="row justify-content-center">
                         <div class="col-md-7 wide-col-laptop">
@@ -373,7 +294,7 @@ print(time.asctime())
                 </div>
             </div>
 
-            <div class="section animated-row" data-section="slide07" >
+            <div class="section animated-row" data-section="slide06" >
                 <div class="section-inner">
                     <div class="row justify-content-center">
                         <div class="col-md-8 wide-col-laptop">
@@ -387,6 +308,7 @@ print(time.asctime())
                                     <div class="item animate" data-animate="fadeInUp">
 
                                         <div class="portfolio-item">
+                                            <h4>Web_app + telegram бот</h4>
                                             <div class="thumb">
                                                 <a rel="nofollow" target="_blank" href="images/bot_support.jpg">
                                                     <img width="auto" height="auto" src="images/bot_support.jpg"/>
@@ -415,6 +337,11 @@ print(time.asctime())
                                     </div>
                                     <div class="item animate" data-animate="fadeInUp">
                                             <div class="portfolio-item">
+
+                                                <!a id="down" href="source/PDF_Reader_TEST_Win.exe" download="PDF_Reader_TEST_Win.exe">👉...Реализация Windows...👈<!/a>
+                                                <a id="down" href="source/PDF_Reader_TEST_Linux" download="PDF_Reader_TEST_Linux"><br>👉...Реализация Linux...👈</a>
+                                                <h4>Самописный PDF-Reader c GUI Windows/ Linux</h4>
+
                                                 <div class="thumb">
                                                 <a rel="nofollow" target="_blank" href="images/test/test_pdf.png">
                                                     <img width="auto" height="auto" src="images/test/test_pdf.png"/>
@@ -423,10 +350,37 @@ print(time.asctime())
                                                     <img width="auto" height="auto" src="images/test/test_pdf2.png"/>
                                                 </a>
                                             </div>
-                                            <!a id="down" href="source/PDF_Reader_TEST_Win.exe" download="PDF_Reader_TEST_Win.exe">👉...Реализация Windows...👈<!/a>
-                                            <a id="down" href="source/PDF_Reader_TEST_Linux" download="PDF_Reader_TEST_Linux"><br>👉...Реализация Linux...👈</a>
+
                                         </div>
                                     </div>
+
+                                    <div class="portfolio-item">
+                                        <a id="down" href="source/AutoUnrar_Finish.zip" download="AutoUnrar_Finish.zip">👉...Реализация Windows...👈</a>
+                                        <h4>Консольный скрипт автораспаковки архивов в любой папке Windows/ Linux</h4>
+
+                                        <a rel="nofollow" target="_blank" href="images/test/Screenshot_1.png">
+                                            <img width="auto" height="auto" src="images/test/Screenshot_1.png"/>
+                                        </a>
+                                        
+                                        <!a rel="nofollow" target="_blank" href="images/test/Screenshot_2.png">
+                                            <!img width="auto" height="auto" src="images/test/Screenshot_2.png"/>
+                                        <!/a>
+                                        
+                                        <a rel="nofollow" target="_blank" href="images/test/Screenshot_8.png">
+                                            <img width="auto" height="auto" src="images/test/Screenshot_8.png"/>
+                                        </a>
+
+                                        <div class="thumb-inner animate" data-animate="fadeInUp" style="overflow: auto; min-width: 100%;">
+                                            
+                                            <p>Функционал:
+                                                <br>- Автоматическая распаковка архивов
+                                                <br>- В файле setting указываем путь к отслеживаемой папке
+                                                <br>- Есть сборка с пишущими логами
+                                            </p>
+
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -434,7 +388,7 @@ print(time.asctime())
                 </div>
             </div>
 
-            <div class="section animated-row" data-section="slide08" data-anchor="slide08">
+            <div class="section animated-row" data-section="slide07" data-anchor="slide07">
                 <div class="section-inner">
                     <div class="row justify-content-center">
                         <div class="col-md-7 wide-col-laptop">

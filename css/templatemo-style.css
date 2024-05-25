@@ -233,11 +233,11 @@ video#myVideo{
 }
 .preloader {
 
-  background: #100155; /* Old browsers */
-  background: -moz-linear-gradient(top, #100155 0%, #00b7ff 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #100155 0%,#00b7ff 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #100155 0%,#00b7ff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#100155', endColorstr='#00b7ff',GradientType=0 ); /* IE6-9 */
+  background: #ffff; /* Old browsers */
+  background: -moz-linear-gradient(top, #ffff 0%, #00b7ff 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #ffff 0%,#00b7ff 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #ffff 0%,#00b7ff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffff', endColorstr='#00b7ff',GradientType=0 ); /* IE6-9 */
 
   height: 100%;
   left: 0;

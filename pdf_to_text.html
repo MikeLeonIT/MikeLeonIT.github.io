@@ -140,7 +140,7 @@
 
 
                                 </script>
-                                <script type="py" config='{ "packages": [ "pdfminer.six" ] }' output="print_output">
+                                <script type="py" config='{ "packages": [ "pdfminer.six", "cryptography" ] }' output="print_output">
 try:
     import asyncio, shutil, io
     from js import document, FileReader, Uint8Array, console, populateVoiceList

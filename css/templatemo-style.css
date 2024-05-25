@@ -784,6 +784,32 @@ textarea.form-control {
   font-size: 25px;
 }
 
+.contact-row2 {
+  
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: inline-block;
+  -webkit-box-align: left;
+  -webkit-align-items: left;
+  -ms-flex-align: left;
+  align-items: left;
+  margin-bottom: 30px;
+  background: rgba(250,250,250,0.25);
+  border-radius: 10px;
+  padding: 30px;
+  font-weight: 700;
+  text-align: left;
+}
+.contact-row2 i {
+  width:auto;
+  font-size: 25px;
+  display:block;
+}
+.contact-row2 i.fa-envelope {
+  font-size: 25px;
+}
+
 /*==============================================
 09. TESTIMONOALS BLOCK CSS
 ================================================*/

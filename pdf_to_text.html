@@ -142,12 +142,13 @@
                                 </script>
                                 <script type="py" config='{ "packages": [ "pdfminer.six", "cryptography" ] }' output="print_output">
 try:
-    import asyncio, shutil, io
+    import asyncio, shutil, io, pyodide_js
     from js import document, FileReader, Uint8Array, console, populateVoiceList
     from pyodide.ffi import create_proxy
     from pdfminer.high_level import extract_text    
 
     async def process_file(event):
+        await pyodide_js.loadPackage("cryptography")
         fileList = event.target.files.to_py()
 
         for f in fileList:

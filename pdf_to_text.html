@@ -11,8 +11,8 @@
     <!-- optional PyScript CSS -->
     <link rel="stylesheet" href="https://pyscript.net/snapshots/2023.09.1.RC1/core.css">
     <!-- This script tag bootstraps PyScript -->
-    <!script type="module" src="https://pyscript.net/snapshots/2023.09.1.RC1/core.js"><!/script>
-    <script type="module" src="https://pyscript.net/releases/2023.11.2/core.js"></script>
+    <script type="module" src="https://pyscript.net/snapshots/2023.09.1.RC1/core.js"></script>
+    <!script type="module" src="https://pyscript.net/releases/2023.11.2/core.js"><!/script>
 
     <title>Online PDF - text_exTractor by Leonov MN</title>
 
@@ -148,8 +148,10 @@ try:
   
 
     async def process_file(event):
-        await pyodide_js.loadPackage("cryptography")
+        # await pyodide_js.loadPackage("cryptography")
+
         from pdfminer.high_level import extract_text
+
         fileList = event.target.files.to_py()
 
         for f in fileList:

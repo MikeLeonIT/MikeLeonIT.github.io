@@ -145,10 +145,11 @@ try:
     import asyncio, shutil, io, pyodide_js
     from js import document, FileReader, Uint8Array, console, populateVoiceList
     from pyodide.ffi import create_proxy
-    from pdfminer.high_level import extract_text    
+  
 
     async def process_file(event):
         await pyodide_js.loadPackage("cryptography")
+        from pdfminer.high_level import extract_text
         fileList = event.target.files.to_py()
 
         for f in fileList:

@@ -80,14 +80,14 @@
                         </nav>
                     </div>
 
-                    <br><p>  <u type="text" class="form-control" style="text-shadow: 1px 1px 1px black;"><label id='today'></label></u></p></b>
+                    <br><p>  <u type="text" class="form-control" style="color:#ffffff; text-shadow: 2px 2px 2px black;"><label id='today'></label></u></p></b>
 
                     <py-script>
                         import datetime as dt
                         from datetime import datetime
 
                         # pyscript.write('today', 'Today is: ' + dt.date.today().strftime('%A %B %d, %Y'))
-                        pyscript.write('today', 'Today is: ' + time.asctime())
+                        pyscript.write('today', 'Вы зашли ко мне: ' + time.asctime())
                         now = datetime.now()
                         # current_time = now.strftime("%H:%M:%S")
                         # pyscript.write('time', current_time)
